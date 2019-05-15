@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "Black";
+    src: url(../Documents/Fonts/Marck_Script/MarckScript-Regular.ttf);
+}
+
+.page {
+    font-family: 'Black';
+    background-image: url(../Documents/Images/texture-papier-vintage-4.jpg);
+    background-color: palegoldenrod;
+    position: absolute;
+    left: 50%;
+    top: 7.5%;
+    height: 555.9px;
+    width: 435.2px;
+}
+
+.page .zone-de-texte {
+    font-size: 14pt;
+    line-height: 12pt;
+    margin: 7%;
+}
+
+.containeur-paragraphe-et-croquis .paragraphe {
+    margin-bottom: 5pt;
+}
+
+.containeur-paragraphe-et-croquis .croquis img {
+    width: 100%;
+    height: 100%;
+}

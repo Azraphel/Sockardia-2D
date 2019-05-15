@@ -1,0 +1,53 @@
+Idée 1:
+
+Avoir un containeur qui represente le livre
+un autre containeur representerais les pages de gauche tandis que l'autre les  pages de droites.
+Ensuite, il faudrait juste créer tous les pages et décider dans quel conatainer les placer.
+
+
+
+Logique:
+
+Lorsque les pages sont "tournées", le code verifie la page qui a été tourner et fait apparaitre la prochaine dans les bons containeurs.
+Pour les signets, il suffit de laissé les signets apparaître comme de toute manière il ne sont pas placer au même endroit sur le livre.
+Donc on jouravecles z-index pour les pages et les pages  qui possède un signet vont comme même montre le signet parce que rien les cache.
+
+Mais qu'est-ce qui en ai de l'arrière du signet. On le met sur la page d'avant ou d'après avec le même text.
+
+
+Class:
+tourner-page plus droite  ou gauche dépendant de la direction que la page et tourner.
+
+Après si le signet et cliquer à la place de tourner les pages (ça deviendra chiant) on vajuste femer le livre et le reouvrir à la bonne page.
+
+Il nous faut donc une page couverture et une page de fin du livre. Ça doit être bien designé.
+
+On va aussi faire une class pour les types de page:
+- Les pages avec une seule image
+- Les pages avec plusieurs images sans text
+- Les pages avec des iamges et des  descriptions
+- Les pages de début de chapitre
+- Les pages de text seulement
+- Les Pages de text avec une image.
+
+
+
+Structure:
+Chaque page doit avoir soit une class soit un id (on va aller avec id en cherche une page précise)
+
+Dans le script, on commenceà la  page 0. Lorrsqu'on change de page en incrémente et décrémente les pages.
+Lorsqu'on clique sur un signet en va prendre le id de la page à la quel appartient le signet et on fait apparaitre la page.
+le signet va devoir avoir une page fixe, car on veut pas arriver  à la page  avant le sujet sur lequel on a cliquer.
+
+
+si on peut as faire apparaitre les page autours du livre comme les page deja passer qui depasse de coter on fera un move avec
+le css ou on le rajoutera nous meme pour donner  une effet plus realiste.
+
+
+
+
+
+il y le livre ensuite les feuille et sur les feuilleil va y avoir le rectoet le verso avec un index sur sur le rectoet le verso
+
+
+handlee dancing marck script Annotation  (bad script)
