@@ -22,6 +22,15 @@
     transform-origin: left;
 }
 
+.page-couverture,
+.page-plat-verso {
+
+}
+
+.page-en-cours-de-lecture {
+
+}
+
 .recto,
 .verso {
     background-image: url(../Documents/Images/texture-papier-vintage-4.jpg);
