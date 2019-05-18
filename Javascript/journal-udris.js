@@ -4,7 +4,8 @@ function TournerLesPages(page_cliquer) {
 
         console.log("c'est une page recto qui a ete toucher");
 
-        var feuille = page_cliquer.parentElement;        
+        var feuille = page_cliquer.parentElement;
+        //feuille.classList.remove("page-retourner");        
         feuille.classList.add("page-tourner", "page-qui-tourne");
         
         setTimeout(function() {
@@ -24,20 +25,34 @@ function TournerLesPages(page_cliquer) {
     }
     else {
 
+        /*
+            Le probl'eme semble se trouver dans la durer pour la transition
+            on peut chercher un moyen de donner la dur/ de transition de 0
+            mais même à cela. Il y a quelques chose qui ne fait pas de sens
+            dans cette affaire là. Pourquoi seulement lorsque tout se trouve
+            dans le timeout que ça marche?
+        */
+
         console.log("c'est une page verso qui a ete toucher");
 
         var feuille = page_cliquer.parentElement;
+
         feuille.classList.add("page-qui-tourne");
-        feuille.classList.remove("page-tourner");
-        feuille.classList.remove("page-en-cours-de-lecture");
-
+        //feuille.classList.remove("page-en-cours-de-lecture");
+        
+        
         setTimeout(function() {
-            feuille.classList.remove("page-qui-tourne");
-        }, 2000);
+            feuille.classList.remove("page-tourner");
 
-        if (feuille.nextElementSibling != null) {
-            feuille.nextElementSibling.classList.add("page-en-cours-de-lecture");
-        }
+            feuille.nextElementSibling.classList.remove("page-qui-tourne");
+            
+            if (feuille.nextElementSibling != null) {
+    
+                feuille.nextElementSibling.classList.add("page-en-cours-de-lecture");
+            }
+
+        }, 10);
+
     }
 
 }
