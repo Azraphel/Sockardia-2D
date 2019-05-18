@@ -5,11 +5,20 @@ function TournerLesPages(page_cliquer) {
         console.log("c'est une page recto qui a ete toucher");
 
         var feuille = page_cliquer.parentElement;        
-        feuille.classList.add("page-en-cours-de-lecture");
-        feuille.classList.add("page-tourner");
+        feuille.classList.add("page-tourner", "page-qui-tourne");
         
-        if (feuille.previousElementSibling !== null) {
-            feuille.previousElementSibling.classList.remove("page-en-cours-de-lecture");
+        setTimeout(function() {
+
+            feuille.classList.remove("page-qui-tourne");
+        
+        }, 2000);
+        
+        if (feuille.nextElementSibling != null) {
+
+            setTimeout(function() {
+                feuille.nextElementSibling.classList.remove("page-en-cours-de-lecture");
+                feuille.classList.add("page-en-cours-de-lecture");
+            }, 2000);
         }
 
     }
@@ -18,8 +27,17 @@ function TournerLesPages(page_cliquer) {
         console.log("c'est une page verso qui a ete toucher");
 
         var feuille = page_cliquer.parentElement;
+        feuille.classList.add("page-qui-tourne");
         feuille.classList.remove("page-tourner");
         feuille.classList.remove("page-en-cours-de-lecture");
+
+        setTimeout(function() {
+            feuille.classList.remove("page-qui-tourne");
+        }, 2000);
+
+        if (feuille.nextElementSibling != null) {
+            feuille.nextElementSibling.classList.add("page-en-cours-de-lecture");
+        }
     }
 
 }

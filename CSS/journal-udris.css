@@ -4,7 +4,7 @@
 }
 
 .livre-udris {
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 7.5%;
     height: 555.9px;
@@ -13,7 +13,7 @@
 
 .page {
     font-family: 'Black';
-    position: absolute;
+    position: fixed;
     height: 555.9px;
     width: 435.2px;
     transform-style: preserve-3d;
@@ -23,7 +23,7 @@
 }
 
 .couverture {
-    
+
 }
 
 .page-couverture,
@@ -37,6 +37,10 @@
 
 .page-tourner {
     transform: rotateY(180deg);
+}
+
+.page-qui-tourne {
+    z-index: 2;
 }
 
 .recto,
