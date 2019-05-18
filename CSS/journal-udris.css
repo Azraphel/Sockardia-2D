@@ -19,6 +19,11 @@
     transform-style: preserve-3d;
     backface-visibility: hidden;
     transform-origin: left;
+    transition-duration: 2s;
+}
+
+.couverture {
+    
 }
 
 .page-couverture,
@@ -27,7 +32,11 @@
 }
 
 .page-en-cours-de-lecture {
+    z-index: 1;
+}
 
+.page-tourner {
+    transform: rotateY(180deg);
 }
 
 .recto,
