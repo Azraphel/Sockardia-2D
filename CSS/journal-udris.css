@@ -39,10 +39,6 @@
     transform: rotateY(180deg);
 }
 
-.page-retourner {
-    transform: rotateY(0deg);
-}
-
 .page-qui-tourne {
     z-index: 2;
 }
