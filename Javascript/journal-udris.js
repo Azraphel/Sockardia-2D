@@ -1,6 +1,11 @@
 function TournerLesPages(page_cliquer) {
+    
+    if (document.getElementsByClassName("page-qui-tourne").length > 0) {
+        return;
+    }
 
     if(page_cliquer.classList.contains("recto")) {
+
 
         console.log("c'est une page recto qui a ete toucher");
 
@@ -42,7 +47,7 @@ function TournerLesPages(page_cliquer) {
         
         
         setTimeout(function() {
-            feuille.classList.remove("page-tourner");
+            feuille.classList.remove("page-tourner", "page-qui-tourne");
 
             feuille.nextElementSibling.classList.remove("page-qui-tourne");
             
@@ -51,7 +56,7 @@ function TournerLesPages(page_cliquer) {
                 feuille.nextElementSibling.classList.add("page-en-cours-de-lecture");
             }
 
-        }, 10);
+        }, 2000);
 
     }
 
