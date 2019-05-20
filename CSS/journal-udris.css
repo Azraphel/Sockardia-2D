@@ -11,36 +11,39 @@
     width: 435.2px;
 }
 
-.page {
+.livre-udris .page {
     font-family: 'Black';
-    position: fixed;
+    position: absolute;
     height: 555.9px;
     width: 435.2px;
     transform-style: preserve-3d;
     backface-visibility: hidden;
     transform-origin: left;
-    transition-duration: 1s;
+    transition: transform 1s;
 }
 
-.couverture {
+.page.verso {
+    transform: rotateY(180deg);
+}
+
+.page.recto.page-qui-tourne {
+    z-index: 2;
+}
+
+.page.verso.page-qui-tourne {
+    z-index: 2;
+}
+
+.livre-udris .couverture {
 
 }
 
-.page-couverture,
-.page-plat-verso {
-
+.livre-udris .page-couverture,
+.livre-udris .plat-verso {
 }
 
 .page-en-cours-de-lecture {
     z-index: 1;
-}
-
-.page-tourner {
-    transform: rotateY(180deg);
-}
-
-.page-qui-tourne {
-    z-index: 2;
 }
 
 .recto,
