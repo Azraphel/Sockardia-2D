@@ -34,12 +34,20 @@
     z-index: 2;
 }
 
-.livre-udris .couverture {
-
+.livre-udris .couverture .recto.page-couverture {
+    background-image: url(../Documents/Images/Couverture-Cuir-Journal-avec-laniere-petit.png);
 }
 
-.livre-udris .page-couverture,
-.livre-udris .plat-verso {
+.livre-udris .couverture .verso.plat-verso {
+    background-image: url(../Documents/Images/Couverture-Cuir-Journal-avec-laniere-plat-verso.png);
+}
+
+.livre-udris .couverture .recto {
+    background-image: url(../Documents/Images/Interieur-Couverture-Cuir-Journal-avec-laniere-page-couverture.png);
+}
+
+.livre-udris .couverture .verso {
+    background-image: url(../Documents/Images/Interieur-Couverture-Cuir-Journal-avec-laniere-petit.png);
 }
 
 .page-en-cours-de-lecture {
