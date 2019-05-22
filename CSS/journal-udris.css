@@ -29,6 +29,7 @@
     width: 435.2px;
     transform-style: preserve-3d;
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     transform-origin: left;
     transition: transform 1s;
 }
