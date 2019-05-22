@@ -28,10 +28,13 @@
     height: 555.9px;
     width: 435.2px;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     transform-origin: left;
+    -webkit-transform-origin: left;
     transition: transform 1s;
+    -webkit-transition: -webkit-transform 1s;
 }
 
 .livre-udris .page.couverture {
@@ -42,6 +45,7 @@
 
 .page.verso {
     transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
 }
 
 .page.recto.page-qui-tourne {

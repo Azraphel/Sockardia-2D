@@ -10,8 +10,6 @@ function TournerLesPages(page_cliquer) {
     
     if (page_cliquer.classList.contains("recto")) {
         
-        console.log("recto");
-        
         present_page_recto.classList.add("page-qui-tourne");
         present_page_recto.classList.remove("recto");
         present_page_recto.classList.add("verso");
@@ -42,8 +40,6 @@ function TournerLesPages(page_cliquer) {
     }
 
     else {
-
-        console.log("verso");
         
         if (present_page_recto.classList.contains("recto")) {
             present_page_recto = present_page_recto.nextElementSibling;
