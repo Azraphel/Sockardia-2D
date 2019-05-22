@@ -1,4 +1,5 @@
 var present_page_recto;
+var livre_udris;
 
 function TournerLesPages(page_cliquer) {
 
@@ -14,6 +15,14 @@ function TournerLesPages(page_cliquer) {
         present_page_recto.classList.add("page-qui-tourne");
         present_page_recto.classList.remove("recto");
         present_page_recto.classList.add("verso");
+
+        if (livre_udris.classList.contains("page-couverture")) {
+            livre_udris.classList.remove("page-couverture");
+        }
+
+        if (present_page_recto.previousElementSibling == null) {
+            livre_udris.classList.add("plat-verso");
+        }
         
         setTimeout(function () {
             
@@ -38,6 +47,12 @@ function TournerLesPages(page_cliquer) {
         
         if (present_page_recto.classList.contains("recto")) {
             present_page_recto = present_page_recto.nextElementSibling;
+
+            if (present_page_recto.nextElementSibling == null)
+                livre_udris.classList.add("page-couverture");
+        }
+        else {
+            livre_udris.classList.remove("plat-verso");
         }
         
         present_page_recto.classList.remove("verso");
@@ -61,6 +76,7 @@ function TournerLesPages(page_cliquer) {
 }
 
 function RajouterEvenement() {
+    livre_udris = document.getElementsByClassName("livre-udris")[0];
     var pages = document.getElementsByClassName("page");
     
     for (var i = 0; i < pages.length; i++) {

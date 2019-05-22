@@ -5,9 +5,20 @@
 
 .livre-udris {
     position: fixed;
-    left: 50%;
     top: 7.5%;
+    left: 50%;
     height: 555.9px;
+    width: 870.4px;
+    transition-duration: 1s;
+}
+
+.livre-udris.page-couverture {
+    left: 34%;
+    width: 435.2px;
+}
+
+.livre-udris.plat-verso {
+    left: 68%;
     width: 435.2px;
 }
 
