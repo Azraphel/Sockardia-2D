@@ -86,6 +86,10 @@ function RajouterEvenement() {
     }
 }
 
+function RedimensionnerLivre() {
+    
+}
+
 window.addEventListener("load", function() {
     RajouterEvenement();
 });

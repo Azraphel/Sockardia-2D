@@ -3,22 +3,37 @@
     src: url(../Documents/Fonts/Marck_Script/MarckScript-Regular.ttf);
 }
 
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.containeur-livre-udris {
+ position: absolute;
+ height: 86.6027%;
+ width: 33.20592%;
+ top: 6.69865%;
+ left: 33.39704%;
+}
+
+.containeur-livre-udris.ouvert {
+    width: 66.41185%;
+    left: 16.794075%;
+}
+
 .livre-udris {
-    position: fixed;
-    top: 7.5%;
-    left: 50%;
+    position: relative;
     height: 568.98px;
     width: 896.56px;
     transition-duration: 1s;
 }
 
 .livre-udris.page-couverture {
-    left: 34%;
     width: 448.28px;
 }
 
 .livre-udris.plat-verso {
-    left: 68%;
     width: 448.28px;
 }
 
