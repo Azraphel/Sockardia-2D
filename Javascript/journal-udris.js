@@ -1,5 +1,7 @@
 var present_page_recto;
+var containeur_livre_udris;
 var livre_udris;
+var body;
 
 function TournerLesPages(page_cliquer) {
 
@@ -16,10 +18,12 @@ function TournerLesPages(page_cliquer) {
 
         if (livre_udris.classList.contains("page-couverture")) {
             livre_udris.classList.remove("page-couverture");
+            containeur_livre_udris.classList.add("ouvert");
         }
 
         if (present_page_recto.previousElementSibling == null) {
             livre_udris.classList.add("plat-verso");
+            containeur_livre_udris.classList.remove("ouvert");
         }
         
         setTimeout(function () {
@@ -44,11 +48,14 @@ function TournerLesPages(page_cliquer) {
         if (present_page_recto.classList.contains("recto")) {
             present_page_recto = present_page_recto.nextElementSibling;
 
-            if (present_page_recto.nextElementSibling == null)
+            if (present_page_recto.nextElementSibling == null) {
                 livre_udris.classList.add("page-couverture");
+                containeur_livre_udris.classList.remove("ouvert");
+            }
         }
         else {
             livre_udris.classList.remove("plat-verso");
+            containeur_livre_udris.classList.add("ouvert");
         }
         
         present_page_recto.classList.remove("verso");
@@ -73,7 +80,10 @@ function TournerLesPages(page_cliquer) {
 
 function RajouterEvenement() {
     livre_udris = document.getElementsByClassName("livre-udris")[0];
+    containeur_livre_udris = document.getElementById("containeur-livre-udris");
     var pages = document.getElementsByClassName("page");
+
+    window.addEventListener("resize", function() { RedimensionnerLivre() });
     
     for (var i = 0; i < pages.length; i++) {
 
@@ -87,9 +97,17 @@ function RajouterEvenement() {
 }
 
 function RedimensionnerLivre() {
-    
+    var scale, origin;
+
+    scale = Math.min(
+        containeur_livre_udris.offsetWidth / livre_udris.offsetWidth,
+        containeur_livre_udris.offsetHeight / livre_udris.offsetHeight
+        );
+
+    livre_udris.style.transform = "scale(" + scale + ")";
 }
 
 window.addEventListener("load", function() {
     RajouterEvenement();
+    RedimensionnerLivre();
 });

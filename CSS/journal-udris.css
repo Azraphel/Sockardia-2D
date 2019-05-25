@@ -5,19 +5,19 @@
 
 html,
 body {
-    height: 100%;
-    width: 100%;
+ overflow: hidden;
 }
 
-.containeur-livre-udris {
+#containeur-livre-udris {
  position: absolute;
  height: 86.6027%;
  width: 33.20592%;
  top: 6.69865%;
  left: 33.39704%;
+ transition: 1s;
 }
 
-.containeur-livre-udris.ouvert {
+#containeur-livre-udris.ouvert {
     width: 66.41185%;
     left: 16.794075%;
 }
@@ -25,16 +25,17 @@ body {
 .livre-udris {
     position: relative;
     height: 568.98px;
-    width: 896.56px;
+    width: 448.28px;
     transition-duration: 1s;
+    left: 50%;
 }
 
 .livre-udris.page-couverture {
-    width: 448.28px;
+    left: 0%;
 }
 
 .livre-udris.plat-verso {
-    width: 448.28px;
+    left: 100%;
 }
 
 .livre-udris .page.couverture {
