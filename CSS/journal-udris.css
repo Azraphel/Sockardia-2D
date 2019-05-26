@@ -12,14 +12,14 @@ body {
  position: absolute;
  height: 86.6027%;
  width: 33.20592%;
- top: 6.69865%;
- left: 33.39704%;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
  transition: 1s;
 }
 
 #containeur-livre-udris.ouvert {
     width: 66.41185%;
-    left: 16.794075%;
 }
 
 .livre-udris {
