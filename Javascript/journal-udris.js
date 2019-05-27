@@ -16,15 +16,11 @@ function TournerLesPages(page_cliquer) {
         present_page_recto.classList.remove("recto");
         present_page_recto.classList.add("verso");
 
-        if (livre_udris.classList.contains("page-couverture")) {
+        if (livre_udris.classList.contains("page-couverture"))
             livre_udris.classList.remove("page-couverture");
-            containeur_livre_udris.classList.add("ouvert");
-        }
 
-        if (present_page_recto.previousElementSibling == null) {
+        if (present_page_recto.previousElementSibling == null)
             livre_udris.classList.add("plat-verso");
-            containeur_livre_udris.classList.remove("ouvert");
-        }
         
         setTimeout(function () {
             
@@ -48,10 +44,8 @@ function TournerLesPages(page_cliquer) {
         if (present_page_recto.classList.contains("recto")) {
             present_page_recto = present_page_recto.nextElementSibling;
 
-            if (present_page_recto.nextElementSibling == null) {
+            if (present_page_recto.nextElementSibling == null)
                 livre_udris.classList.add("page-couverture");
-                containeur_livre_udris.classList.remove("ouvert");
-            }
         }
         else {
             livre_udris.classList.remove("plat-verso");

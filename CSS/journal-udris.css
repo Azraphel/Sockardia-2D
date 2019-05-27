@@ -18,16 +18,15 @@ body {
  transition: 1s;
 }
 
-#containeur-livre-udris.ouvert {
-    width: 66.41185%;
-}
-
 .livre-udris {
     position: relative;
     height: 568.98px;
     width: 448.28px;
     transition-duration: 1s;
     left: 50%;
+    transform-origin: 0;
+    -webkit-transform-origin: 0;
+    -moz-transform-origin: 0;
 }
 
 .livre-udris.page-couverture {
