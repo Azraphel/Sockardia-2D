@@ -16,6 +16,7 @@ body {
  left: 50%;
  transform: translate(-50%, -50%);
  transition: 1s;
+ padding-top: 126.92%;
 }
 
 .livre-udris {
