@@ -12,11 +12,12 @@ body {
  position: absolute;
  height: 86.6027%;
  width: 33.20592%;
+ min-width: 377.22px;
+ min-height: 554.25px;
  top: 50%;
  left: 50%;
  transform: translate(-50%, -50%);
  transition: 1s;
- padding-top: 126.92%;
 }
 
 .livre-udris {
@@ -55,6 +56,8 @@ body {
     -webkit-transform-style: preserve-3d;
     -webkit-transform-origin: left;
     -webkit-transition: -webkit-transform 1s;
+    -webkit-transform:translate3d(0,0,0);
+
 }
 
 .livre-udris .page.page-simple {
