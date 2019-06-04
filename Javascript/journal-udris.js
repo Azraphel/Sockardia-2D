@@ -97,6 +97,8 @@ function RedimensionnerLivre() {
         containeur_livre_udris.offsetWidth / livre_udris.offsetWidth,
         containeur_livre_udris.offsetHeight / livre_udris.offsetHeight
         );
+    
+    scale = Math.round(scale * 100) / 100;
 
     livre_udris.style.transform = "scale(" + scale + ")";
 }

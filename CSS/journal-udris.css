@@ -10,7 +10,7 @@ body {
 
 #containeur-livre-udris {
  position: absolute;
- height: 86.6027%;
+ height: auto;
  width: 33.20592%;
  min-width: 377.22px;
  min-height: 554.25px;
@@ -142,6 +142,9 @@ body {
 }
 
 .page .zone-de-texte {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
     font-size: 14pt;
     line-height: 12pt;
 }
