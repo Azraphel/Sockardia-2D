@@ -1,6 +1,7 @@
-var present_page_recto;
+var page_courante;
 var containeur_livre_udris;
 var livre_udris;
+var pages;
 var body;
 
 var question_repondu = 0;
@@ -34,84 +35,63 @@ var infromation_question = {
                           2 : "" } }
 }
 
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    window.location.replace("./mobile-index.html");
-}
+function TournerLesPages(btn_clique) {
 
-function TournerLesPages(page_cliquer) {
-
-    if (document.getElementsByClassName("page-qui-tourne").length > 0) {
+    if (document.getElementsByClassName("page-en-cours-de-lecture").length > 1)
         return;
-    }
 
-    
-    if (page_cliquer.classList.contains("recto")) {
+    if (btn_clique.id == "btn-suivant") {
+
+        if (page_courante == pages.length) {
+            return;
+        }
         
-        present_page_recto.classList.add("page-qui-tourne");
-        present_page_recto.classList.remove("recto");
-        present_page_recto.classList.add("verso");
+        pages[page_courante+1].classList.add("page-suivante");
 
-        if (livre_udris.classList.contains("page-couverture"))
-            livre_udris.classList.remove("page-couverture");
+        setTimeout(function() {
+            pages[page_courante+1].classList.add("page-en-cours-de-lecture");
+            pages[page_courante].classList.add("page-precedente");
+            pages[page_courante+1].classList.remove("page-suivante");
+        }, 50)
 
-        if (present_page_recto.previousElementSibling == null)
-            livre_udris.classList.add("plat-verso");
-        
-        setTimeout(function () {
-            
-            present_page_recto.classList.remove("page-qui-tourne");
-            present_page_recto.classList.add("page-en-cours-de-lecture");
-            
-            if (present_page_recto.nextElementSibling != null) {
-                present_page_recto.nextElementSibling.classList.remove("page-en-cours-de-lecture");
-            }
+        setTimeout(function() {
 
-            if (present_page_recto.previousElementSibling != null) {
-                present_page_recto = present_page_recto.previousElementSibling;
-            }
-            
-        }, 500);
+            pages[page_courante].classList.remove("page-en-cours-de-lecture");
+            page_courante++;
+
+        }, 575);
 
     }
 
     else {
-        
-        if (present_page_recto.classList.contains("recto")) {
-            present_page_recto = present_page_recto.nextElementSibling;
 
-            if (present_page_recto.nextElementSibling == null)
-                livre_udris.classList.add("page-couverture");
+        if (page_courante == 0) {
+            return;
         }
-        else {
-            livre_udris.classList.remove("plat-verso");
-            containeur_livre_udris.classList.add("ouvert");
-        }
-        
-        present_page_recto.classList.remove("verso");
-        present_page_recto.classList.add("page-qui-tourne", "recto");
-        
-        if (present_page_recto.nextElementSibling != null) {
-            present_page_recto.nextElementSibling.classList.add("page-en-cours-de-lecture");
-        }
-        
-        present_page_recto.classList.remove("page-en-cours-de-lecture");
-        
-        setTimeout(function () {
-            
-            present_page_recto.classList.remove("page-qui-tourne");
-        
-        }, 500);
 
+        pages[page_courante-1].classList.add("page-precedente");
+
+        setTimeout(function() {
+            pages[page_courante-1].classList.add("page-en-cours-de-lecture");
+            pages[page_courante].classList.add("page-suivante");
+            pages[page_courante-1].classList.remove("page-precedente");
+        }, 50);
+
+        setTimeout(function() {
+
+            pages[page_courante].classList.remove("page-en-cours-de-lecture");
+            page_courante--;
+
+        }, 575);
     }
-    
 
 }
 
 function RajouterEvenement() {
-    var pages = document.getElementsByClassName("page");
-
     livre_udris = document.getElementsByClassName("livre-udris")[0];
     containeur_livre_udris = document.getElementById("containeur-livre-udris");
+    pages = document.getElementsByClassName("page");
+    page_courante = 0;
 
     image_element_resultat = document.getElementById("udris-image-resultat");
     nom_element_resultat = document.getElementById("udris-resultat-nom");
@@ -123,25 +103,14 @@ function RajouterEvenement() {
         SoumettreReponse();
     })
 
-    window.addEventListener("resize", function() { RedimensionnerLivre() });
-    
-    for (var i = 0; i < pages.length; i++) {
-
-        if (i == pages.length - 1) {
-            present_page_recto = pages[i];
-        }
-
-        pages[i].classList.add("recto");
-
-        pages[i].addEventListener("click", function(e) { 
-
-            if (e.target.closest(".containeur-questionaire"))
-                return;
-
-            TournerLesPages(this);
-
-        });
+    for (var i = 1; i < pages.length; i++) {
+        
+        pages[i].classList.add("page-suivante");
     }
+
+    window.addEventListener("resize", function() { RedimensionnerLivre() });
+    document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages(this)});
+    document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages(this)});
 }
 
 function RedimensionnerLivre() {
@@ -259,7 +228,6 @@ function RecommencerQuiz() {
         containeurs_question[0].appendChild(btn_soumettre_recommencer);
     
     }, 1000);
-
 
 }
 
