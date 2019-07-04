@@ -36,6 +36,7 @@ var infromation_question = {
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     window.location.replace("./mobile-index.html");
+    
 }
 
 function TournerLesPages(page_cliquer) {
