@@ -257,7 +257,7 @@ function RecommencerQuiz() {
 }
 
 window.addEventListener("load", function() {
-    DonnerMesureDefinitifSite();
+    // DonnerMesureDefinitifSite();
     RajouterEvenement();
     RedimensionnerLivre();
 });
