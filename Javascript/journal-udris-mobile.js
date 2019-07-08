@@ -46,7 +46,7 @@ function DonnerMesureDefinitifSite() {
         hauteur_ecran;
 
     if (screen.height > screen.width) {
-        hauteur_ecran = screend.height;
+        hauteur_ecran = screen.height;
         largeur_ecran = screen.width;
     }
 
