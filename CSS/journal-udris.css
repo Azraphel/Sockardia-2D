@@ -3,9 +3,22 @@
     src: url(../Documents/Fonts/Marck_Script/MarckScript-Regular.ttf);
 }
 
-html,
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
- overflow: hidden;
+    height: inherit;
+    width: inherit;
+    margin: 0;
+    padding: 0;
+    background-image: url(../Documents/Images/abstract-antique-background-172276.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
 }
 
 #containeur-livre-udris {
@@ -222,6 +235,10 @@ body {
     margin-bottom: 20px;
 }
 
+input[type="radio"]:checked + label {
+    color: #993333;
+}
+
 .containeur-response label {
     text-align: end;
 }
@@ -243,14 +260,26 @@ body {
     width: 100%;
 }
 
-/* #udris-resultat-nom {
-    font-size: 24px;
-} */
-
-#btn-soumettre-recommencer-questionnaire {
+#containeur-soumettre-recommencer-questionnaire {
     position: relative;
-    left: 50%;
-    transform: translate(-50%);
+    margin: 0 auto;
+    text-align: center;
+    text-decoration-line: underline;
+    
+}
+
+#containeur-soumettre-recommencer-questionnaire:hover {
+    color: red;
+}
+
+#containeur-soumettre-recommencer-questionnaire img {
+    width: 10%;
+    height: auto;
+    transition: all 0.1s;
+}
+
+#containeur-soumettre-recommencer-questionnaire img:active {
+    transform: scale(0.8);
 }
 
 @media (min-width: 1281px) {

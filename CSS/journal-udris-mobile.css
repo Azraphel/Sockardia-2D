@@ -4,9 +4,6 @@
 }
 
 html {
-    background-image: url(../Documents/Images/abstract-antique-background-172276.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -18,6 +15,9 @@ body {
     height: inherit;
     margin: 0;
     padding: 0;
+    background-image: url(../Documents/Images/abstract-antique-background-172276.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
     overflow: hidden;
 }
 
@@ -38,7 +38,7 @@ body {
 .containeur-button {
     position: absolute;
     width: 5%;
-    height: 5%;
+    height: 10%;
     top: 50%;
     z-index: 2;
     transform: translate(0, -50%);
@@ -228,7 +228,6 @@ body {
 
 input[type="radio"]:checked + label {
     color: #993333;
-    /* text-decoration-line: overline; */
 }
 
 .containeur-response label {
@@ -252,13 +251,19 @@ input[type="radio"]:checked + label {
     width: 100%;
 }
 
-#btn-soumettre-recommencer-questionnaire {
+#containeur-soumettre-recommencer-questionnaire {
     position: relative;
     margin: 0 auto;
     text-align: center;
     text-decoration-line: underline;
 }
 
-#btn-soumettre-recommencer-questionnaire:hover {
-    color: red;
+#containeur-soumettre-recommencer-questionnaire img {
+    width: 10%;
+    height: auto;
+    transition: all 0.1s;
+}
+
+#containeur-soumettre-recommencer-questionnaire img:active {
+    transform: scale(0.8);
 }

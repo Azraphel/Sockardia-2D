@@ -20,6 +20,12 @@ var information_score_quizz = {
     Énergie : { nom : "Énergie", score : 0 }
 };
 
+var liens_button_quiz_image = {
+    Suivant : "Documents/Images/btn_suivant.png",
+    Soumettre : "Documents/Images/btn_soumettre.png",
+    Recommencer : "Documents/Images/btn_recommencer.png"
+}
+
 var information_sur_elements = {
     Air : { lien_img: "https://media2.giphy.com/media/dTfRgwOhX8jIY/giphy.gif", nom: "Air", text: "Un élément calme qui contrairement au feu est loin de ses émotions."},
     Feu : { lien_img: "https://media.giphy.com/media/AHeTfHgVFPHgs/giphy.gif", nom: "Feu", text: "Ceux qui ont comme élément le feu, on souvent le coeur sur la main. Il n'ont pas peur de dire ce qui leur pass par l'esprit."},
@@ -97,7 +103,7 @@ function RajouterEvenement() {
     nom_element_resultat = document.getElementById("udris-resultat-nom");
     description_element_resultat = document.getElementById("udris-description-element");
     containeurs_question = document.getElementsByClassName("containeur-question");
-    btn_soumettre_recommencer = document.getElementById("btn-soumettre-recommencer-questionnaire");
+    btn_soumettre_recommencer = document.getElementById("containeur-soumettre-recommencer-questionnaire");
 
     btn_soumettre_recommencer.addEventListener("click", function() {
         SoumettreReponse();
@@ -161,11 +167,11 @@ function SoumettreReponse() {
                 question.nextElementSibling.classList.add("montrer");
 
                 if (question_repondu == containeurs_question.length-1) {
-                    btn_soumettre_recommencer.textContent = "Soumettre";
+                    btn_soumettre_recommencer.firstElementChild.src = liens_button_quiz_image.Soumettre;
                 }
     
                 else if (question_repondu == containeurs_question.length) {
-                    btn_soumettre_recommencer.textContent = "Recommencer";
+                    btn_soumettre_recommencer.firstElementChild.src = liens_button_quiz_image.Recommencer;
     
                     CalculerResultatQuiz();
                 }
@@ -224,7 +230,7 @@ function RecommencerQuiz() {
     setTimeout(function() {
 
         containeurs_question[0].classList.add("montrer");
-        btn_soumettre_recommencer.textContent = "soumettre";
+        btn_soumettre_recommencer.firstElementChild.src = liens_button_quiz_image.Suivant;
         containeurs_question[0].appendChild(btn_soumettre_recommencer);
     
     }, 1000);
