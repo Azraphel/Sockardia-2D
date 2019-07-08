@@ -40,9 +40,9 @@ var infromation_question = {
                           2 : "" } }
 }
 
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    window.location.replace("./mobile-index.html");
-
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+    screen.height > screen.width && screen.width < 768 || screen.width > screen.height && screen.height < 768 ) {
+        window.location.replace("./mobile-index.html");
 }
 
 function TournerLesPages(page_cliquer) {
