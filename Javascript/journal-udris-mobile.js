@@ -41,6 +41,25 @@ var infromation_question = {
                           2 : "" } }
 }
 
+function DonnerMesureDefinitifSite() {
+    var largeur_ecran,
+        hauteur_ecran;
+
+    if (screen.height > screen.width) {
+        hauteur_ecran = screend.height;
+        largeur_ecran = screen.width;
+    }
+
+    else {
+        hauteur_ecran = screend.width;
+        largeur_ecran = screen.height;
+    }
+
+    document.body.height = hauteur_ecran + 'px';
+    document.body.width = largeur_ecran + 'px';
+
+}
+
 function TournerLesPages(btn_clique) {
 
     if (document.getElementsByClassName("page-en-cours-de-lecture").length > 1)
@@ -238,6 +257,7 @@ function RecommencerQuiz() {
 }
 
 window.addEventListener("load", function() {
+    DonnerMesureDefinitifSite();
     RajouterEvenement();
     RedimensionnerLivre();
 });
