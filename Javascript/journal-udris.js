@@ -232,7 +232,7 @@ function CalculerResultatQuiz() {
 
         var score = information_score_quizz[element]["score"];
 
-        if (score > resultat_occurence) {
+        if (score >= resultat_occurence) {
             resultat_occurence = score;
             resultat = element;
         }
