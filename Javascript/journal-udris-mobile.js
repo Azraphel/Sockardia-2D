@@ -7,7 +7,7 @@ var body;
 var point_de_commencement_x,
     point_de_commencement_y,
     distance_traverser,
-    temps_alloue = 200,
+    temps_alloue = 500,
     distance_minimum = 150,
     temps_ecoule,
     temps_debut;
@@ -126,8 +126,28 @@ function RajouterEvenement() {
     window.addEventListener("resize", function() { RedimensionnerLivre() });
     // document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages(this)});
     // document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages(this)});
-    window.addEventListener("touchstart", function(e) {InformationDebutToucher(e)});
-    window.addEventListener("touchend", function(e) {InformationFinToucher(e)});
+    window.addEventListener("touchstart", function InformationDebutToucher(e){
+        var touchee = e.changedTouches[0];
+        distance_traverser = 0;
+        point_de_commencement_x = touchee.pageX;
+        point_de_commencement_y = touchee.pageY;
+        temps_debut = new Date().getTime();
+    });
+
+    window.addEventListener("touchend", function InformationFinToucher(e) {
+        var touchee = e.changedTouches[0];
+        distance_traverser = touchee.pageX - point_de_commencement_x;
+
+        console.log("temps_debut: " + temps_debut);
+        temps_ecoule = new Date().getTime() - temps_debut;
+
+        console.log("d-t:" + distance_traverser + " d-minimum" + distance_minimum);
+        console.log("temps_ecoule: " + temps_ecoule + " temps_alloue: " + temps_alloue);
+
+        if (Math.abs(distance_traverser) >= distance_minimum && temps_ecoule <= temps_alloue) {
+            TournerLesPages((distance_traverser > 0 ? 'gauche' : 'droite'));
+        }
+    }, false);
 }
 
 function RedimensionnerLivre() {
@@ -145,11 +165,11 @@ function RedimensionnerLivre() {
 
 function InformationDebutToucher(e) {
     var touchee = e.changedTouches[0];
-        distance_traverser = 0
-        point_de_commencement_x = touchee.pageX
-        point_de_commencement_y = touchee.pageY
-        temps_debut = new Date().getTime() // record time when finger first makes contact with surface
-        e.preventDefault()
+        distance_traverser = 0;
+        point_de_commencement_x = touchee.pageX;
+        point_de_commencement_y = touchee.pageY;
+        temps_debut = new Date().getTime();
+        e.preventDefault();
 }
 
 function InformationFinToucher(e) {
