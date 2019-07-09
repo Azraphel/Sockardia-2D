@@ -8,7 +8,7 @@ var point_de_commencement_x,
     point_de_commencement_y,
     distance_traverser,
     temps_alloue = 500,
-    distance_minimum = 100,
+    distance_minimum = 50,
     temps_ecoule,
     temps_debut;
 
