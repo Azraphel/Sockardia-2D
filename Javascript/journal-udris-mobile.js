@@ -124,10 +124,10 @@ function RajouterEvenement() {
     }
 
     window.addEventListener("resize", function() { RedimensionnerLivre() });
-    document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages(this)});
-    document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages(this)});
-    window.addEventListener("touchstart", function(e) {InformationDebutToucher(e)}, false);
-    window.addEventListener("touchend", function(e) {InformationFinToucher(e)}, false);
+    // document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages(this)});
+    // document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages(this)});
+    window.addEventListener("touchstart", function(e) {InformationDebutToucher(e)});
+    window.addEventListener("touchend", function(e) {InformationFinToucher(e)});
 }
 
 function RedimensionnerLivre() {
@@ -158,7 +158,7 @@ function InformationFinToucher(e) {
     temps_ecoule = new Date().getTime - temps_debut;
 
     if (Math.abs(distance_traverser) >= distance_minimum && temps_ecoule <= temps_alloue) {
-        TournerLesPages((distance_traverser > 0 ? 'droite' : 'gauche'));
+        TournerLesPages((distance_traverser > 0 ? 'gauche' : 'droite'));
     }
 }
 
