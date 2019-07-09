@@ -57,10 +57,10 @@ function TournerLesPages(direction) {
 
     if (direction == 'droite') {
 
-        if (page_courante == pages.length) {
+        if (page_courante == pages.length - 1) {
             return;
         }
-        
+
         pages[page_courante+1].classList.add("page-suivante");
 
         setTimeout(function() {
@@ -124,30 +124,10 @@ function RajouterEvenement() {
     }
 
     window.addEventListener("resize", function() { RedimensionnerLivre() });
-    // document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages(this)});
-    // document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages(this)});
-    window.addEventListener("touchstart", function InformationDebutToucher(e){
-        var touchee = e.changedTouches[0];
-        distance_traverser = 0;
-        point_de_commencement_x = touchee.pageX;
-        point_de_commencement_y = touchee.pageY;
-        temps_debut = new Date().getTime();
-    });
-
-    window.addEventListener("touchend", function InformationFinToucher(e) {
-        var touchee = e.changedTouches[0];
-        distance_traverser = touchee.pageX - point_de_commencement_x;
-
-        console.log("temps_debut: " + temps_debut);
-        temps_ecoule = new Date().getTime() - temps_debut;
-
-        console.log("d-t:" + distance_traverser + " d-minimum" + distance_minimum);
-        console.log("temps_ecoule: " + temps_ecoule + " temps_alloue: " + temps_alloue);
-
-        if (Math.abs(distance_traverser) >= distance_minimum && temps_ecoule <= temps_alloue) {
-            TournerLesPages((distance_traverser > 0 ? 'gauche' : 'droite'));
-        }
-    }, false);
+    document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages('gauche')});
+    document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages('droite')});
+    window.addEventListener("touchstart", function (e) {InformationDebutToucher(e)});
+    window.addEventListener("touchend", function (e) {InformationFinToucher(e)});
 }
 
 function RedimensionnerLivre() {
@@ -175,7 +155,7 @@ function InformationDebutToucher(e) {
 function InformationFinToucher(e) {
     var touchee = e.changedTouches[0];
     distance_traverser = touchee.pageX - point_de_commencement_x;
-    temps_ecoule = new Date().getTime - temps_debut;
+    temps_ecoule = new Date().getTime() - temps_debut;
 
     if (Math.abs(distance_traverser) >= distance_minimum && temps_ecoule <= temps_alloue) {
         TournerLesPages((distance_traverser > 0 ? 'gauche' : 'droite'));
