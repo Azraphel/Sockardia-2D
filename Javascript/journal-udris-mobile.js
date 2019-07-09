@@ -4,6 +4,15 @@ var livre_udris;
 var pages;
 var body;
 
+var point_de_commencement_x,
+    point_de_commencement_y,
+    distance_traverser,
+    temps_alloue = 200,
+    distance_minimum = 150,
+    temps_ecoule,
+    temps_debut;
+
+
 var question_repondu = 0;
 var image_element_resultat;
 var nom_element_resultat;
@@ -41,31 +50,12 @@ var infromation_question = {
                           2 : "" } }
 }
 
-function DonnerMesureDefinitifSite() {
-    var largeur_ecran,
-        hauteur_ecran;
-
-    if (screen.height > screen.width) {
-        hauteur_ecran = screen.height;
-        largeur_ecran = screen.width;
-    }
-
-    else {
-        hauteur_ecran = screend.width;
-        largeur_ecran = screen.height;
-    }
-
-    document.body.height = hauteur_ecran + 'px';
-    document.body.width = largeur_ecran + 'px';
-
-}
-
-function TournerLesPages(btn_clique) {
+function TournerLesPages(direction) {
 
     if (document.getElementsByClassName("page-en-cours-de-lecture").length > 1)
         return;
 
-    if (btn_clique.id == "btn-suivant") {
+    if (direction == 'droite') {
 
         if (page_courante == pages.length) {
             return;
@@ -136,6 +126,8 @@ function RajouterEvenement() {
     window.addEventListener("resize", function() { RedimensionnerLivre() });
     document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages(this)});
     document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages(this)});
+    window.addEventListener("touchstart", function(e) {InformationDebutToucher(e)}, false);
+    window.addEventListener("touchend", function(e) {InformationFinToucher(e)}, false);
 }
 
 function RedimensionnerLivre() {
@@ -149,6 +141,25 @@ function RedimensionnerLivre() {
     scale = Math.round(scale * 100) / 100;
 
     livre_udris.style.transform = "scale(" + scale + ")";
+}
+
+function InformationDebutToucher(e) {
+    var touchee = e.changedTouches[0];
+        distance_traverser = 0
+        point_de_commencement_x = touchee.pageX
+        point_de_commencement_y = touchee.pageY
+        temps_debut = new Date().getTime() // record time when finger first makes contact with surface
+        e.preventDefault()
+}
+
+function InformationFinToucher(e) {
+    var touchee = e.changedTouches[0];
+    distance_traverser = touchee.pageX - point_de_commencement_x;
+    temps_ecoule = new Date().getTime - temps_debut;
+
+    if (Math.abs(distance_traverser) >= distance_minimum && temps_ecoule <= temps_alloue) {
+        TournerLesPages((distance_traverser > 0 ? 'droite' : 'gauche'));
+    }
 }
 
 function SoumettreReponse() {
@@ -257,7 +268,6 @@ function RecommencerQuiz() {
 }
 
 window.addEventListener("load", function() {
-    // DonnerMesureDefinitifSite();
     RajouterEvenement();
     RedimensionnerLivre();
 });
