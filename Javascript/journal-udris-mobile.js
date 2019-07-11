@@ -3,6 +3,7 @@ var containeur_livre_udris;
 var livre_udris;
 var pages;
 var body;
+var div_orientation_telephone;
 
 var point_de_commencement_x,
     point_de_commencement_y,
@@ -13,12 +14,12 @@ var point_de_commencement_x,
     temps_debut;
 
 
-var question_repondu = 0;
-var image_element_resultat;
-var nom_element_resultat;
-var description_element_resultat;
-var containeurs_question;
-var btn_soumettre_recommencer;
+var question_repondu = 0,
+    image_element_resultat,
+    nom_element_resultat,
+    description_element_resultat,
+    containeurs_question,
+    btn_soumettre_recommencer;
 
 var information_score_quizz = {
     Air : { nom : "Air", score : 0 },
@@ -103,8 +104,9 @@ function TournerLesPages(direction) {
 }
 
 function RajouterEvenement() {
-    livre_udris = document.getElementsByClassName("livre-udris")[0];
+    div_orientation_telephone = document.getElementById("containeur-demande-de-changement-dorientation");
     containeur_livre_udris = document.getElementById("containeur-livre-udris");
+    livre_udris = document.getElementById("livre-udris");
     pages = document.getElementsByClassName("page");
     page_courante = 0;
 
@@ -123,6 +125,7 @@ function RajouterEvenement() {
         pages[i].classList.add("page-suivante");
     }
 
+    window.addEventListener("orientationchange", ManageurDeRotationDeTelephone());
     window.addEventListener("resize", function() { RedimensionnerLivre() });
     document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages('gauche')});
     document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages('droite')});
@@ -143,13 +146,24 @@ function RedimensionnerLivre() {
     livre_udris.style.transform = "scale(" + scale + ")";
 }
 
+function ManageurDeRotationDeTelephone() {
+    switch(window.orientation) {
+        case -90 || 90:
+            div_orientation_telephone.style.display = "flex";
+            break;
+            
+            default:
+            div_orientation_telephone.style.display = "none";
+            break;
+    }
+}
+
 function InformationDebutToucher(e) {
     var touchee = e.changedTouches[0];
         distance_traverser = 0;
         point_de_commencement_x = touchee.pageX;
         point_de_commencement_y = touchee.pageY;
         temps_debut = new Date().getTime();
-        e.preventDefault();
 }
 
 function InformationFinToucher(e) {

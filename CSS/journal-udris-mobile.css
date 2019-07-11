@@ -21,12 +21,23 @@ body {
     overflow: hidden;
 }
 
+#containeur-demande-de-changement-dorientation {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
 #containeur-livre-udris {
     position: absolute;
     display: inline-block;
     height: auto;
     width: 90%;
-    /* max-width: 342px; */
     min-width: 90%;
     top: 50%;
     margin: 0 auto;
@@ -62,7 +73,7 @@ body {
     height: 100%;
 }
 
-.livre-udris {
+#livre-udris {
     position: relative;
     margin: 0 auto;
     height: 434.084px;
@@ -73,12 +84,12 @@ body {
     -moz-transform-origin: 0;
 }
 
-.livre-udris .page {
+#livre-udris .page {
     height: 434.084px;
     width: 342px;
 }
 
-.livre-udris .page {
+#livre-udris .page {
     font-family: 'Black';
     background-image: url(../Documents/Images/texture-papier-vintage-4.jpg);
     position: absolute;
@@ -100,28 +111,28 @@ body {
     transform: translateX(110%);
 }
 
-.livre-udris .couverture {
+#livre-udris .couverture {
     background-position: center;
     background-size: cover;
 }
 
-.livre-udris .page-couverture-recto {
+#livre-udris .page-couverture-recto {
     background-image: url(../Documents/Images/Couverture-Cuir-Journal-avec-laniere-petit.png);
 }
 
-.livre-udris .plat-verso-verso {
+#livre-udris .plat-verso-verso {
     background-image: url(../Documents/Images/Couverture-Cuir-Journal-avec-laniere-plat-verso.png);
 }
 
-.livre-udris .plat-verso-recto {
+#livre-udris .plat-verso-recto {
     background-image: url(../Documents/Images/Interieur-Couverture-Cuir-Journal-avec-laniere-petit.png);
 }
 
-.livre-udris .page-couverture-verso {
+#livre-udris .page-couverture-verso {
     background-image: url(../Documents/Images/Interieur-Couverture-Cuir-Journal-avec-laniere-page-couverture.png);
 }
 
-.livre-udris .page.page-en-cours-de-lecture {
+#livre-udris .page.page-en-cours-de-lecture {
      visibility: visible;
 }
 
@@ -172,22 +183,6 @@ body {
 .grand-croquis img {
     width: 100%;
     height: 100%;
-}
-
-.livre-udris .annotation-1 {
-    top: 325px;
-    left: 300px;
-    font-size: 14pt;
-    text-decoration: line-through;
-    transform: rotate(-24deg);
-}
-
-.livre-udris .annotation-2 {
-    top: 347px;
-    left: 155px;
-    font-size: 14pt;
-    text-decoration: line-through;
-    transform: rotate(7deg);
 }
 
 .containeur-questionaire {
