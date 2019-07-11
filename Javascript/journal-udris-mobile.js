@@ -152,12 +152,10 @@ function ManageurDeRotationDeTelephone() {
     switch(window.orientation) {
         case -90:
         case 90:
-            alert("landscape");
             div_orientation_telephone.style.display = "flex";
             break;
             
             default:
-                alert("portrait");
             div_orientation_telephone.style.display = "none";
             break;
     }
