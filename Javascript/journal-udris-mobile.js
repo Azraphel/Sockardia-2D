@@ -151,7 +151,7 @@ function ManageurDeRotationDeTelephone() {
         case -90:
         case 90:
             alert("landscape");
-            div_orientation_telephone.style.display = "block";
+            div_orientation_telephone.style.display = "flex";
             break;
             
             default:
