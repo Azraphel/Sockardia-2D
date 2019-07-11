@@ -125,12 +125,14 @@ function RajouterEvenement() {
         pages[i].classList.add("page-suivante");
     }
 
-    window.addEventListener("orientationchange", ManageurDeRotationDeTelephone());
+    window.addEventListener("orientationchange", function() {ManageurDeRotationDeTelephone()});
     window.addEventListener("resize", function() { RedimensionnerLivre() });
     document.getElementById("btn-precedent").addEventListener("click", function() {TournerLesPages('gauche')});
     document.getElementById("btn-suivant").addEventListener("click", function() {TournerLesPages('droite')});
     window.addEventListener("touchstart", function (e) {InformationDebutToucher(e)});
     window.addEventListener("touchend", function (e) {InformationFinToucher(e)});
+    
+    ManageurDeRotationDeTelephone();
 }
 
 function RedimensionnerLivre() {
