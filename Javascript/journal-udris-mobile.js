@@ -149,10 +149,12 @@ function RedimensionnerLivre() {
 function ManageurDeRotationDeTelephone() {
     switch(window.orientation) {
         case -90 || 90:
-            div_orientation_telephone.style.display = "flex";
+            alert("landscape");
+            div_orientation_telephone.style.display = "block";
             break;
             
             default:
+                alert("portrait");
             div_orientation_telephone.style.display = "none";
             break;
     }
