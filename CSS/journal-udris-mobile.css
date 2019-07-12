@@ -136,27 +136,9 @@ body {
      visibility: visible;
 }
 
-.containeur-annotation-haut-de-page,
-.containeur-annotation-bas-de-page {
-    display: block;
-    height: 23.77px;
-    width: 342px;
-}
-
 .containeur-paragraphe,
 .containeur-croquis {
-    margin-left: 23.93px;
-    margin-right: 23.93px;
-}
-
-.containeur-annotation {
-    display: block;
-    height: 37.48pt;
-}
-
-.annotation {
-    text-align: center;
-    position: fixed;
+    margin: 23.93px;
 }
 
 .page .zone-de-texte {
