@@ -24,7 +24,7 @@ var question_repondu = 0,
 var information_score_quizz = {
     Air : { nom : "Air", score : 0 },
     Feu : { nom : "Feu", score : 0 },
-    Éléctricité : { nom : "Éléctricté", score : 0 },
+    Électricité : { nom : "Éléctricté", score : 0 },
     Eau : { nom : "Eau", score : 0 },
     Terre : { nom :  "Terre", score : 0 },
     Énergie : { nom : "Énergie", score : 0 }
@@ -37,12 +37,12 @@ var liens_button_quiz_image = {
 }
 
 var information_sur_elements = {
-    Air : { lien_img: "https://media2.giphy.com/media/dTfRgwOhX8jIY/giphy.gif", nom: "Air", text: "Un élément calme qui contrairement au feu est loin de ses émotions."},
-    Feu : { lien_img: "https://media.giphy.com/media/AHeTfHgVFPHgs/giphy.gif", nom: "Feu", text: "Ceux qui ont comme élément le feu, on souvent le coeur sur la main. Il n'ont pas peur de dire ce qui leur pass par l'esprit."},
-    Éléctricité : { lien_img: "https://media.giphy.com/media/Ta1MVGKCG2GFq/giphy.gif", nom: "Éléctricité", text: "L'élément le plus relax qu'il soit. On se demande souvent s'ils savent ce qu'être sérieux est."},
-    Eau : { lien_img: "https://thumbs.gfycat.com/PossibleSnoopyHalicore-small.gif", nom: "Eau", text: "Un élément qui va essayé d'épouser ce qui l'entour"},
-    Terre : { lien_img: "https://media3.giphy.com/media/aqjck3KGKs5pu/giphy.gif", nom: "Terre", text: "Un élément immouvable. Tétu et dure à faire changer d'opinion"},
-    Énergie : {lien_img: "https://i.pinimg.com/originals/9d/a0/02/9da0022d312e5011270c3c19c5feac83.gif", nom: "Énergie", text: "L'énergie ne s'occupe pas rééllement de ce qui se passe autours de lui. Il est dans son propre monde."}
+    Air : { lien_img: "https://media2.giphy.com/media/dTfRgwOhX8jIY/giphy.gif", nom: "Air", text: "L'air un élément paisible. Habituellement calme dans la majorité des situations, il prend l'habitude d'analyser tout ce qui l'entoure avant d'agir. Mais faites attention une brise légère peut cacher une tempête."},
+    Feu : { lien_img: "https://media.giphy.com/media/AHeTfHgVFPHgs/giphy.gif", nom: "Feu", text: "Si on joue avec le feu ont peu se brûler et il en est de même avec ceux qui ont cet élément. Ils sont reconnus pour leur franchise et cela parce qu'ils sont très proches de leur émotion et ne se gêne pas de dire ce qu'ils pensent."},
+    Électricité : { lien_img: "https://media.giphy.com/media/Ta1MVGKCG2GFq/giphy.gif", nom: "Électricité", text: "Ceux qui ont pour élément l'électricité sont reconnus pour leur vitesse de réaction dans toutes les situations et pour leur énergie qui offre dans groupe. Ils sont souvent relax et prennent les choses à la légère."},
+    Eau : { lien_img: "https://thumbs.gfycat.com/PossibleSnoopyHalicore-small.gif", nom: "Eau", text: "Ceux de l'eau s'adaptent à leur environnement et font de leur mieux pour ne pas être mal vu par leur paire. Ils sont souvent à la recherche d'une manière de rendre tous ceux qui les entours heureux et sont souvent des médiateurs."},
+    Terre : { lien_img: "https://media3.giphy.com/media/aqjck3KGKs5pu/giphy.gif", nom: "Terre", text: "La terre est ce qui tient tout en place en plus d'être indéplaçable et celui qui a cet élément en fera de même. Il s'agit d'un élément qui une fois une décision prise, il sera difficile de la changer."},
+    Énergie : {lien_img: "https://i.pinimg.com/originals/9d/a0/02/9da0022d312e5011270c3c19c5feac83.gif", nom: "Énergie", text: "Le seul élément qui n'a pas de trait de personnalité comme les autres. Ils ont habituellement leur propre manière de penser et deux personnes ayant cet élément pourraient agir de manière complètement opposée."}
 };
 
 var infromation_question = {
