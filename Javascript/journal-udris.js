@@ -182,6 +182,9 @@ function SoumettreReponse() {
 
         var choix_de_reponse = question.getElementsByTagName("input");
 
+        if (choix_de_reponse.length == 0)
+            questionChoisi = true;
+
         for (var i = 0; i < choix_de_reponse.length; i++) {
             
             if (choix_de_reponse[i].checked) {
