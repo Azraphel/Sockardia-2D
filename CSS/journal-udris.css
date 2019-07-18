@@ -245,3 +245,24 @@ input[type="radio"]:checked + label {
 #containeur-soumettre-recommencer-questionnaire img:active {
     transform: scale(0.8);
 }
+
+#containeur-media-social {
+    position: absolute;
+    display: flex;
+    height: 10%;
+    width: 10%;
+    bottom: 0px;
+    right: 0px;
+}
+
+.icon-social-media {
+    margin: 5%;
+    height: 100%;
+    width: 33%;
+    float: left;
+}
+
+.icon-social-media img {
+    width: 100%;
+    height: 100%;
+}

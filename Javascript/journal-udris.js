@@ -134,9 +134,9 @@ function RajouterEvenement() {
     containeurs_question = document.getElementsByClassName("containeur-question");
     btn_soumettre_recommencer = document.getElementById("containeur-soumettre-recommencer-questionnaire");
 
-    btn_soumettre_recommencer.addEventListener("click", function() {
-        SoumettreReponse();
-    })
+    var icon_media = document.getElementsByClassName("icon-social-media");
+
+    btn_soumettre_recommencer.addEventListener("click", function() {SoumettreReponse();})
 
     window.addEventListener("resize", function() { RedimensionnerLivre() });
     
@@ -156,6 +156,10 @@ function RajouterEvenement() {
             TournerLesPages(this);
 
         });
+    }
+
+    for (var i = 0; i < icon_media.length; i++) {
+        icon_media[i].addEventListener("click", function() {OuvrirReseauSociaux(this)});
     }
 }
 
@@ -279,6 +283,25 @@ function RecommencerQuiz() {
     }, 1000);
 
 
+}
+
+function OuvrirReseauSociaux(icon_toucher) {
+    var nouveau_onglet;
+    var icon_toucher_id = icon_toucher.id;
+
+    if (icon_toucher_id.indexOf("twitter")) {
+        nouveau_onglet = window.open("https://twitter.com", "_blank");
+    }
+
+    if (icon_toucher_id.indexOf("instagram")) {
+        nouveau_onglet = window.open("https://instagram.com", "_blank");  
+    }
+
+    if (icon_toucher_id.indexOf("facebook")) {
+        nouveau_onglet = window.open("https://facebook.com", "_blank");
+    }
+
+    nouveau_onglet.focus();
 }
 
 window.addEventListener("load", function() {
