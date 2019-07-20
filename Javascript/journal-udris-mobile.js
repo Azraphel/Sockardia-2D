@@ -261,8 +261,7 @@ function CalculerResultatQuiz() {
             resultat = element;
         }
     }
-
-    image_element_resultat.src = information_sur_elements[resultat]["lien_img"];
+    
     nom_element_resultat.textContent = information_sur_elements[resultat]["nom"];
     description_element_resultat.textContent = information_sur_elements[resultat]["text"];
 
@@ -294,21 +293,10 @@ function RecommencerQuiz() {
 }
 
 function OuvrirReseauSociaux(icon_toucher) {
+    var icon_toucher_media = icon_toucher.id.replace('icon-', '');
+    
     var nouveau_onglet;
-    var icon_toucher_id = icon_toucher.id;
-
-    if (icon_toucher_id.indexOf("twitter")) {
-        nouveau_onglet = window.open("https://twitter.com", "_blank");
-    }
-
-    if (icon_toucher_id.indexOf("instagram")) {
-        nouveau_onglet = window.open("https://instagram.com", "_blank");  
-    }
-
-    if (icon_toucher_id.indexOf("facebook")) {
-        nouveau_onglet = window.open("https://facebook.com", "_blank");
-    }
-
+    nouveau_onglet = window.open('https://' + icon_toucher_media + '.com/sockardia', '_blank');
     nouveau_onglet.focus();
 }
 

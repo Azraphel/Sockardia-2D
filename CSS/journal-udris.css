@@ -172,6 +172,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .containeur-question,
@@ -190,17 +191,21 @@ body {
 }
 
 .question  {
-    font-family: 'Black1';
     text-align: center;
     font-size: 20pt;
     margin-bottom: 20px;
 }
 
-.containeur-response {
-    font-family: 'Black3';
+.containeur-choix-de-reponse {
     text-align: justify;
     font-size: 14pt;
     margin-bottom: 20px;
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.containeur-response {
+    margin-bottom: 5%;
 }
 
 input[type="radio"]:checked + label {
@@ -260,6 +265,11 @@ input[type="radio"]:checked + label {
     height: 100%;
     width: 33%;
     float: left;
+    transition: all 0.1s;
+}
+
+.icon-social-media:active {
+    transform: scale(0.8);
 }
 
 .icon-social-media img {
