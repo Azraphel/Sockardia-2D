@@ -1,16 +1,6 @@
 @font-face {
-    font-family: "Black";
+    font-family: "MarckScript";
     src: url(../Documents/Fonts/Marck_Script/MarckScript-Regular.ttf);
-}
-
-@font-face {
-    font-family: "Black1";
-    src: url(../Documents/Fonts/jsl-ancient/JANCIENI.TTF);
-}
-
-@font-face {
-    font-family: "Black3";
-    src: url(../Documents/Fonts/argos-george/ArgosGeorge.ttf);
 }
 
 html {
@@ -80,7 +70,7 @@ body {
 }
 
 .livre-udris .page {
-    font-family: 'Black';
+    font-family: 'MarckScript';
     position: absolute;
     height: 555.9px;
     width: 435.2px;

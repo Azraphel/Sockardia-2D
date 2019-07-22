@@ -1,5 +1,5 @@
 @font-face {
-    font-family: "Black";
+    font-family: "MarckScript";
     src: url(../Documents/Fonts/Marck_Script/MarckScript-Regular.ttf);
 }
 
@@ -90,7 +90,7 @@ body {
 }
 
 #livre-udris .page {
-    font-family: 'Black';
+    font-family: 'MarckScript';
     background-image: url(../Documents/Images/texture-papier-vintage-4.jpg);
     position: absolute;
     transform-style: preserve-3d;

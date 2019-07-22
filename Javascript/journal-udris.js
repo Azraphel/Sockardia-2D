@@ -44,8 +44,8 @@ var infromation_question = {
 }
 
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
-    screen.height > screen.width && screen.width < 768 || screen.width > screen.height && screen.height < 768 ) {
-        window.location.replace("./mobile-index.html");
+    screen.height > screen.width && screen.width < 700 || screen.width > screen.height && screen.height < 700 ) {
+        window.location.replace("./m-index.html");
 }
 
 function TournerLesPages(page_cliquer) {
