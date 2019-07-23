@@ -39,8 +39,7 @@ var information_sur_elements = {
     Énergie : { nom: "Énergie", text: "Le seul élément qui n'a pas de trait de personnalité comme les autres. Ils ont habituellement leur propre manière de penser et deux personnes ayant cet élément pourraient agir de manière complètement opposée."}
 };
 
-if( (appareil_telephone && screen.height > screen.width && screen.width < 700 || screen.width > screen.height && screen.height < 700) ||
-    navigateur_safari) {
+if( (appareil_telephone && screen.height > screen.width && screen.width < 700 || screen.width > screen.height && screen.height < 700)) {
         window.location.replace("./m-index.html");
 }
 
@@ -114,10 +113,6 @@ function TournerLesPages(page_cliquer) {
 }
 
 function RajouterEvenement() {
-
-    if ( navigateur_internet_explorer ) {
-        document.getElementById("containeur-changer-navigateur").style.display = "flex";
-    }
 
     var pages = document.getElementsByClassName("page");
 
@@ -290,6 +285,10 @@ function OuvrirReseauSociaux(icon_toucher) {
 }
 
 window.addEventListener("load", function() {
+    if ( navigateur_internet_explorer || navigateur_safari) {
+        document.getElementById("containeur-changer-navigateur").style.display = "flex";
+    }
+    
     RajouterEvenement();
     RedimensionnerLivre();
 });
