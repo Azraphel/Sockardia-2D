@@ -21,9 +21,9 @@ body {
     overflow: hidden;
 }
 
-#containeur-demande-de-changement-dorientation {
+#containeur-information {
     position: absolute;
-    display: none;
+    display: flex;
     height: 100%;
     width: 100%;
     z-index: 3;
@@ -31,6 +31,28 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
+    font-size: 1.25em;
+}
+
+.chargement {
+    animation: extend 3s steps(3, end) infinite;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+}
+
+.chargement::before {
+    content: "...";
+}
+
+@keyframes extend {
+    0% {
+        width: 0.25em;
+    }
+
+    100% {
+        width: 1em;
+    }
 }
 
 #containeur-livre-udris {

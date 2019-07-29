@@ -3,7 +3,7 @@ var containeur_livre_udris;
 var livre_udris;
 var pages;
 var body;
-var div_orientation_telephone;
+var containeur_information;
 
 var point_de_commencement_x,
     point_de_commencement_y,
@@ -98,7 +98,7 @@ function TournerLesPages(direction) {
 }
 
 function RajouterEvenement() {
-    div_orientation_telephone = document.getElementById("containeur-demande-de-changement-dorientation");
+    containeur_information = document.getElementById("containeur-information");
     containeur_livre_udris = document.getElementById("containeur-livre-udris");
     livre_udris = document.getElementById("livre-udris");
     pages = document.getElementsByClassName("page");
@@ -152,11 +152,11 @@ function ManageurDeRotationDeTelephone() {
     switch(window.orientation) {
         case -90:
         case 90:
-            div_orientation_telephone.style.display = "flex";
+            containeur_information.style.display = "flex";
             break;
             
             default:
-            div_orientation_telephone.style.display = "none";
+            containeur_information.style.display = "none";
             break;
     }
 }
@@ -295,6 +295,13 @@ function OuvrirReseauSociaux(icon_toucher) {
 }
 
 window.addEventListener("load", function() {
+
+    setTimeout(function() {
+        
+        containeur_information.textContent = "Veuillez changer l'orientation de votre téléphone pour portrait.";
+        
+    }, 1000);
+
     RajouterEvenement();
     RedimensionnerLivre();
 });
