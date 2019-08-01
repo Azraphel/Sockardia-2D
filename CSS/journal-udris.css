@@ -113,7 +113,7 @@ body {
 
 .page.verso {
     transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg) translateZ(0);
 }
 
 .page .recto,
