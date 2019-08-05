@@ -177,7 +177,7 @@ body {
     line-height: 12pt;
 }
 
-.containeur-questionaire {
+#containeur-questionaire {
     position: absolute;
     height: 40%;
     width: 90%;
@@ -187,28 +187,32 @@ body {
     font-family: 'Times New Roman', Times, serif;
 }
 
-.containeur-question,
-.containeur-resultat-quiz{
+#containeur-explication-questionnaire,
+#containeur-question-reponse,
+#containeur-resultat-quiz{
     position: absolute;
     margin: 0 auto;
     opacity: 0;
-    visibility: hidden;
     transition: 1s;
+    visibility: hidden;
 }
-
-.containeur-question.montrer,
-.containeur-resultat-quiz.montrer {
+#containeur-explication-questionnaire.montrer,
+#containeur-question-reponse.montrer,
+#containeur-resultat-quiz.montrer {
     visibility: visible;
     opacity: 1;
 }
 
-.question  {
+#question,
+.titre  {
     text-align: center;
     font-size: 20pt;
     margin-bottom: 20px;
 }
 
-.containeur-choix-de-reponse {
+#containeur-choix-de-reponse,
+#containeur-description-element,
+#explication-questionnaire {
     text-align: justify;
     font-size: 14pt;
     margin-bottom: 20px;
@@ -245,7 +249,7 @@ input[type="radio"]:checked + label {
     width: 100%;
 }
 
-#containeur-soumettre-recommencer-questionnaire {
+#btn-soumettre-recommencer-questionnaire {
     position: relative;
     margin: 0 auto;
     text-align: center;
@@ -253,13 +257,13 @@ input[type="radio"]:checked + label {
     
 }
 
-#containeur-soumettre-recommencer-questionnaire img {
+#btn-soumettre-recommencer-questionnaire img {
     width: 10%;
     height: auto;
     transition: all 0.1s;
 }
 
-#containeur-soumettre-recommencer-questionnaire img:active {
+#btn-soumettre-recommencer-questionnaire img:active {
     transform: scale(0.8);
 }
 

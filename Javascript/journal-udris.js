@@ -9,10 +9,19 @@ var appareil_telephone = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Ope
 var navigateur_safari = /^((?!chrome|android).)*safari/i.test(user_agent);
 
 var question_repondu = 0;
+
+var container_explication_questionnaire;
+
+var containeurs_question_et_reponse;
+var question;
+var choix_reponse_oui;
+var choix_reponse_non;
+
+var container_resultat_questionnaire;
 var image_element_resultat;
 var nom_element_resultat;
 var description_element_resultat;
-var containeurs_question;
+
 var btn_soumettre_recommencer;
 
 var liens_button_quiz_image = {
@@ -21,26 +30,185 @@ var liens_button_quiz_image = {
     Recommencer : "Documents/Images/btn_recommencer.png"
 }
 
-var information_score_quizz = {
-    Air : { nom : "Air", score : 0 },
-    Feu : { nom : "Feu", score : 0 },
-    Électricité : { nom : "Éléctricté", score : 0 },
-    Eau : { nom : "Eau", score : 0 },
-    Terre : { nom :  "Terre", score : 0 },
-    Énergie : { nom : "Énergie", score : 0 }
+var resultat_questionnaire = {
+    jugement: {
+        penseur: 0,
+        emotionel: 0
+    },
+    
+    social: {
+        introverti: 0,
+        extraverti: 0
+    }
 };
 
+var informations_questions = {
+
+    0 : {
+        type: "social,extraverti",
+        question_text: "Avez-vous de la facilité à approcher des inconnus?"
+    },
+
+    1 : {
+        type:"jugement,penseur",
+        question_text: "Est-il dur pour vous de prendre des décisions sans tous les faits?"
+    },
+    
+    2 : {
+        type:"social,introverti",
+        question_text: "Êtes-vous attiré par les lieux calmes et peu peuplés?"
+    },    
+
+    3 : {
+        type:"jugement,emotionel",
+        question_text: "Est-il facile pour vous de commencer un projet sans le planifier?"
+    },
+    
+    4 : {
+        type:"social,extraverti",
+        question_text: "Aimez-vous faire souvent la fête?"
+    },
+
+    5 : {
+        type:"jugement,penseur",
+        question_text: "Faites-vous des rêves très près de la réalité?"
+    },
+    
+    6 : {
+        type:"social,introverti",
+        question_text: "Avez-vous besoin de moment seul pour recharger vos «batteries»?"
+    },
+    
+    7 : {
+        type:"jugement,emotionel",
+        question_text: "Écoutez-vous votre coeur lorsque vous prenez des décisions?"
+    },
+
+    8 : {
+        type:"social,extraverti",
+        question_text: "Aimez-vous être le centre de l'attention?"
+    },
+    
+    9 : {
+        type:"jugement,penseur",
+        question_text: "Préférez-vous travailler sur des sujets que vous pouvez toucher?"
+    },
+}
+var nombre_total_de_question = Object.keys(informations_questions).length;
+
+var element_selon_resultat = {
+    
+    introverti : {
+        emotionel : "Eau",
+        penseur : "Air",
+        special : "Énergie"
+    },
+
+    extraverti : {
+        emotionel : "Feu",
+        penseur : "Terre",
+        special : "Électricité"
+    }
+}
+
 var information_sur_elements = {
-    Air : { nom: "Air", text: "L'air un élément paisible. Habituellement calme dans la majorité des situations, il prend l'habitude d'analyser tout ce qui l'entoure avant d'agir. Mais faites attention une brise légère peut cacher une tempête."},
-    Feu : { nom: "Feu", text: "Si on joue avec le feu ont peu se brûler et il en est de même avec ceux qui ont cet élément. Ils sont reconnus pour leur franchise et cela parce qu'ils sont très proches de leur émotion et ne se gêne pas de dire ce qu'ils pensent."},
-    Électricité : { nom: "Électricité", text: "Ceux qui ont pour élément l'électricité sont reconnus pour leur vitesse de réaction dans toutes les situations et pour leur énergie qui offre dans groupe. Ils sont souvent relax et prennent les choses à la légère."},
-    Eau : { nom: "Eau", text: "Ceux de l'eau s'adaptent à leur environnement et font de leur mieux pour ne pas être mal vu par leur paire. Ils sont souvent à la recherche d'une manière de rendre tous ceux qui les entours heureux et sont souvent des médiateurs."},
-    Terre : { nom: "Terre", text: "La terre est ce qui tient tout en place en plus d'être indéplaçable et celui qui a cet élément en fera de même. Il s'agit d'un élément qui une fois une décision prise, il sera difficile de la changer."},
-    Énergie : { nom: "Énergie", text: "Le seul élément qui n'a pas de trait de personnalité comme les autres. Ils ont habituellement leur propre manière de penser et deux personnes ayant cet élément pourraient agir de manière complètement opposée."}
+    Air : { 
+        nom: "Air",
+        text: "Ceux qui sont identifiés à cet élément sont habituellement très calme. Ils sont souvent dans leur bulle. Malgré qui ne communique pas beaucoup, ils analysent beaucoup tout ce qui les entoure pour en tirer leur conclusion."
+    },
+
+    Feu : {
+        nom: "Feu",
+        text: "Si on joue avec le feu ont peu se brûler et il en est de même avec ceux qui ont cet élément. Ils sont reconnus pour leur franchise et cela parce qu'ils sont très proches de leur émotion et ne se gêne pas de dire ce qu'ils pensent."
+    },
+
+    Électricité : {
+        nom: "Électricité",
+        text: "Ceux qui ont pour élément l'électricité sont reconnus pour leur vitesse de réaction et d'analyse dans toutes les situations et pour leur énergie qui offre dans groupe. Ils sont souvent relax et prennent les choses à la légère."
+    },
+
+    Eau : {
+        nom: "Eau",
+        text: "Ceux de l'eau s'adaptent à leur environnement. Il est dur de savoir ce qu'ils pensent réellement, mais grâce à leur action, il est facile de savoir qu'il s'agit d'être très empathique et qu'il est affecté par la manière que les autres se sentent"
+    },
+
+    Terre : {
+        nom: "Terre",
+        text: "La terre est ce qui tient tout en place en plus d'être indéplaçable et celui qui a cet élément en fera de même. Il s'agit d'un élément qui une fois une décision prise, il sera difficile de la changer. Ses décisions sont habituellement fondées."
+    },
+
+    Énergie : {
+        nom: "Énergie",
+        text: "Ils s'agit d'être assez mystérieux. Ils ont habituellement leur propre manière de percevoir le monde. Il est dur d'en tirer un hors de ses pensées. Ils semblent réagir ce qui se passe présentement tout en analysant ce qui arrivera dans le futur."
+    }
 };
 
 if( (appareil_telephone && screen.height > screen.width && screen.width < 700 || screen.width > screen.height && screen.height < 700)) {
         window.location.replace("./m-index.html");
+}
+
+function RajouterEvenement() {
+
+    var pages = document.getElementsByClassName("page");
+
+    livre_udris = document.getElementsByClassName("livre-udris")[0];
+    containeur_livre_udris = document.getElementById("containeur-livre-udris");
+
+    container_explication_questionnaire = document.getElementById("containeur-explication-questionnaire");
+
+    containeurs_question_et_reponse = document.getElementById("containeur-question-reponse");
+    question = document.getElementById("question");
+    choix_reponse_oui = document.getElementById("questionnaire-element-reponse-oui");
+    choix_reponse_non = document.getElementById("questionnaire-element-reponse-non");
+
+    container_resultat_questionnaire = document.getElementById("containeur-resultat-quiz");
+    image_element_resultat = document.getElementById("udris-image-resultat");
+    nom_element_resultat = document.getElementById("udris-resultat-nom");
+    description_element_resultat = document.getElementById("udris-description-element");
+    
+    btn_soumettre_recommencer = document.getElementById("btn-soumettre-recommencer-questionnaire").firstElementChild;
+
+
+    var icon_media = document.getElementsByClassName("icon-social-media");
+
+    btn_soumettre_recommencer.addEventListener("click", function() {SoumettreReponse();})
+
+    window.addEventListener("resize", function() { RedimensionnerLivre() });
+    
+    for (var i = 0; i < pages.length; i++) {
+
+        if (i == pages.length - 1) {
+            present_page_recto = pages[i];
+        }
+
+        pages[i].classList.add("recto");
+
+        pages[i].addEventListener("click", function(e) { 
+
+            if (e.target.closest("#containeur-questionaire"))
+                return;
+
+            TournerLesPages(this);
+
+        });
+    }
+
+    for (var i = 0; i < icon_media.length; i++) {
+        icon_media[i].addEventListener("click", function() {OuvrirReseauSociaux(this)});
+    }
+}
+
+function RedimensionnerLivre() {
+    var scale, origin;
+
+    scale = Math.min(
+        containeur_livre_udris.offsetWidth / livre_udris.offsetWidth,
+        containeur_livre_udris.offsetHeight / livre_udris.offsetHeight
+        );
+    
+    scale = Math.round(scale * 100) / 100;
+
+    livre_udris.style.transform = "scale(" + scale + ")";
 }
 
 function TournerLesPages(page_cliquer) {
@@ -108,143 +276,93 @@ function TournerLesPages(page_cliquer) {
         }, 500);
 
     }
-    
 
-}
-
-function RajouterEvenement() {
-
-    var pages = document.getElementsByClassName("page");
-
-    livre_udris = document.getElementsByClassName("livre-udris")[0];
-    containeur_livre_udris = document.getElementById("containeur-livre-udris");
-
-    image_element_resultat = document.getElementById("udris-image-resultat");
-    nom_element_resultat = document.getElementById("udris-resultat-nom");
-    description_element_resultat = document.getElementById("udris-description-element");
-    containeurs_question = document.getElementsByClassName("containeur-question");
-    btn_soumettre_recommencer = document.getElementById("containeur-soumettre-recommencer-questionnaire");
-
-    var icon_media = document.getElementsByClassName("icon-social-media");
-
-    btn_soumettre_recommencer.addEventListener("click", function() {SoumettreReponse();})
-
-    window.addEventListener("resize", function() { RedimensionnerLivre() });
-    
-    for (var i = 0; i < pages.length; i++) {
-
-        if (i == pages.length - 1) {
-            present_page_recto = pages[i];
-        }
-
-        pages[i].classList.add("recto");
-
-        pages[i].addEventListener("click", function(e) { 
-
-            if (e.target.closest(".containeur-questionaire"))
-                return;
-
-            TournerLesPages(this);
-
-        });
-    }
-
-    for (var i = 0; i < icon_media.length; i++) {
-        icon_media[i].addEventListener("click", function() {OuvrirReseauSociaux(this)});
-    }
-}
-
-function RedimensionnerLivre() {
-    var scale, origin;
-
-    scale = Math.min(
-        containeur_livre_udris.offsetWidth / livre_udris.offsetWidth,
-        containeur_livre_udris.offsetHeight / livre_udris.offsetHeight
-        );
-    
-    scale = Math.round(scale * 100) / 100;
-
-    livre_udris.style.transform = "scale(" + scale + ")";
 }
 
 function SoumettreReponse() {
 
-    var question = containeurs_question[question_repondu];
+    if (container_explication_questionnaire.classList.contains("montrer")) {
+        
+        container_explication_questionnaire.classList.remove("montrer");
 
-    if (question) {
+        MettreAJourQuestionDuQuestionnaire();
+        
+        setTimeout(function(){
+            containeurs_question_et_reponse.appendChild(btn_soumettre_recommencer.parentElement);
+            containeurs_question_et_reponse.classList.add("montrer");
+        }, 1000);
 
-        var questionChoisi = false;
+    }
 
-        var choix_de_reponse = question.getElementsByTagName("input");
+    else if (containeurs_question_et_reponse.classList.contains("montrer")) {
 
-        if (choix_de_reponse.length == 0)
-            questionChoisi = true;
+        if (choix_reponse_oui.checked || choix_reponse_non.checked) {
+            containeurs_question_et_reponse.classList.remove("montrer");
+            question_repondu++;
 
-        for (var i = 0; i < choix_de_reponse.length; i++) {
-            
-            if (choix_de_reponse[i].checked) {
-                questionChoisi = true;
+            var reponse_choisi = choix_reponse_oui.checked ? choix_reponse_oui : choix_reponse_non,
+                valeur_reponse_choisi = reponse_choisi.value.split(",");
 
-                var valeur_reponse_choisi = choix_de_reponse[i].value.split(",");
+            resultat_questionnaire[valeur_reponse_choisi[0]][valeur_reponse_choisi[1]]++;
 
-                for (var j = 0; j < valeur_reponse_choisi.length; j++) {
-                
-                    var element_score = valeur_reponse_choisi[j].split(":");
-                    information_score_quizz[element_score[0]]["score"] +=  parseInt(element_score[1]);
+            reponse_choisi.checked = false;
 
+            setTimeout(function(){
+
+                if (question_repondu < nombre_total_de_question) {
+                    if (question_repondu == nombre_total_de_question - 1)
+                        btn_soumettre_recommencer.src = liens_button_quiz_image.Soumettre;
+
+                        MettreAJourQuestionDuQuestionnaire();
+                        containeurs_question_et_reponse.classList.add("montrer");
                 }
-            }
 
-        }
-
-        if (questionChoisi) {
-            question.classList.remove("montrer");
-
-            setTimeout(function() {
-                question.nextElementSibling.appendChild(btn_soumettre_recommencer);
-                question.nextElementSibling.classList.add("montrer");
-
-                if (question_repondu == containeurs_question.length-1) {
-                    btn_soumettre_recommencer.firstElementChild.src = liens_button_quiz_image.Soumettre;
-                }
-    
-                else if (question_repondu == containeurs_question.length) {
-                    btn_soumettre_recommencer.firstElementChild.src = liens_button_quiz_image.Recommencer;
-    
+                else {
+                    btn_soumettre_recommencer.src = liens_button_quiz_image.Recommencer;
+                    container_resultat_questionnaire.appendChild(btn_soumettre_recommencer.parentElement);
                     CalculerResultatQuiz();
+                    container_resultat_questionnaire.classList.add("montrer");
                 }
 
             }, 1000);
-
-            question_repondu++;
         }
 
     }
 
-    else {
-        
+    else if (container_resultat_questionnaire.classList.contains("montrer")) {
         RecommencerQuiz();
-
     }
 
 }
 
+function MettreAJourQuestionDuQuestionnaire() {
+    var type_de_question,
+        valeur_question,
+        valeur_reponse_question;
+
+    question.textContent = informations_questions[question_repondu]["question_text"];
+    type_de_question = informations_questions[question_repondu]["type"].split(",")[0];
+    valeur_question = informations_questions[question_repondu]["type"].split(",")[1];
+    valeur_reponse_question = type_de_question + ",";
+    
+    choix_reponse_oui.value = valeur_reponse_question + valeur_question;
+
+    if (type_de_question == "jugement")
+        choix_reponse_non.value = valeur_reponse_question + (valeur_question == "penseur" ? "emotionel" : "penseur");
+
+    else if (type_de_question == "social")
+        choix_reponse_non.value = valeur_reponse_question + (valeur_question == "introverti" ? "extraverti" : "introverti");
+}
+
 function CalculerResultatQuiz() {
+    var pointage_jugement = resultat_questionnaire.jugement.emotionel - resultat_questionnaire.jugement.penseur,
+        pointage_social = resultat_questionnaire.social.extraverti - resultat_questionnaire.social.introverti;
 
-    var resultat = "";
-    var resultat_occurence = 0;
+    var resultat_scoial = pointage_social > 0 ? "extraverti" : "introverti";
+    var resultat_jugement = pointage_jugement <= 1 && pointage_jugement >= -1 ? "special" : pointage_jugement > 0 ? "emotionel" : "penseur";
 
-    for (element in information_score_quizz) {
-
-        var score = information_score_quizz[element]["score"];
-
-        if (score >= resultat_occurence) {
-            resultat_occurence = score;
-            resultat = element;
-        }
-    }
-
-    // image_element_resultat.src = information_sur_elements[resultat]["lien_img"];
+    var resultat = element_selon_resultat[resultat_scoial][resultat_jugement];
+    
     nom_element_resultat.textContent = information_sur_elements[resultat]["nom"];
     description_element_resultat.textContent = information_sur_elements[resultat]["text"];
 
@@ -252,24 +370,34 @@ function CalculerResultatQuiz() {
 
 function RecommencerQuiz() {
     
-    for (element in information_score_quizz)
-        information_score_quizz[element]["score"] = 0;
+    for (type_social in resultat_questionnaire) {
 
-    question_repondu = 0;
-    
-    var reponses = document.getElementsByTagName("input");
+        if (!resultat_questionnaire.hasOwnProperty(type_social))
+            continue;
 
-    for (var i = 0; i < reponses.length; i++) {
-        reponses[i].checked = false;
+        object_social = resultat_questionnaire[type_social];
+
+        for (type_jugement in object_social) {
+            
+            if (!object_social.hasOwnProperty(type_jugement)) 
+                continue;
+
+            object_social[type_jugement] = 0;
+
+        }
+        
     }
 
-    document.getElementsByClassName("containeur-resultat-quiz")[0].classList.remove("montrer");
+    question_repondu = 0;
+
+    container_resultat_questionnaire.classList.remove("montrer");
 
     setTimeout(function() {
 
-        containeurs_question[0].classList.add("montrer");
-        btn_soumettre_recommencer.firstElementChild.src = liens_button_quiz_image.Suivant;
-        containeurs_question[0].appendChild(btn_soumettre_recommencer);
+        btn_soumettre_recommencer.src = liens_button_quiz_image.Suivant;
+
+        container_explication_questionnaire.appendChild(btn_soumettre_recommencer.parentElement);
+        container_explication_questionnaire.classList.add("montrer");
     
     }, 1000);
 
