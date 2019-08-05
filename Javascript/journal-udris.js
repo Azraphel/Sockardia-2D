@@ -66,7 +66,7 @@ var informations_questions = {
     
     4 : {
         type:"social,extraverti",
-        question_text: "Aimez-vous faire souvent la fête?"
+        question_text: "Allez-vous souvent à des événements?"
     },
 
     5 : {
@@ -119,7 +119,7 @@ var information_sur_elements = {
 
     Feu : {
         nom: "Feu",
-        text: "Si on joue avec le feu ont peu se brûler et il en est de même avec ceux qui ont cet élément. Ils sont reconnus pour leur franchise et cela parce qu'ils sont très proches de leur émotion et ne se gêne pas de dire ce qu'ils pensent."
+        text: "Si on joue avec le feu ont peu se brûler et il en est de même avec ceux qui ont cet élément. Ils sont reconnus pour leur franchise. De plus, ils sont très proches de leur émotion et ne se gêne pas de dire ce qu'ils pensent."
     },
 
     Électricité : {
