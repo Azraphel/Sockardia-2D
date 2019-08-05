@@ -129,7 +129,7 @@ var information_sur_elements = {
 
     Eau : {
         nom: "Eau",
-        text: "Ceux de l'eau s'adaptent à leur environnement. Il est dur de savoir ce qu'ils pensent réellement, mais grâce à leur action, il est facile de savoir qu'il s'agit d'être très empathique et qu'il est affecté par la manière que les autres se sentent"
+        text: "Ceux de l'eau s'adaptent à leur environnement. Il est dur de savoir ce qu'ils pensent réellement, mais grâce à leur action, il est facile de savoir qu'il s'agit d'être très empathique et qu'il est affecté par la manière que les autres se sentent."
     },
 
     Terre : {
@@ -139,7 +139,7 @@ var information_sur_elements = {
 
     Énergie : {
         nom: "Énergie",
-        text: "Ils s'agit d'être assez mystérieux. Ils ont habituellement leur propre manière de percevoir le monde. Il est dur d'en tirer un hors de ses pensées. Ils semblent réagir ce qui se passe présentement tout en analysant ce qui arrivera dans le futur."
+        text: "Ce sont des êtres assez mystérieux. Ils ont habituellement leur propre manière de percevoir le monde. Il est dur d'en tirer un hors de ses pensées. Ils semblent réagir ce qui se passe présentement tout en analysant ce qui arrivera dans le futur."
     }
 };
 
