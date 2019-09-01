@@ -143,7 +143,7 @@ var information_sur_elements = {
     }
 };
 
-if( (appareil_telephone && screen.height > screen.width && screen.width < 700 || screen.width > screen.height && screen.height < 700)) {
+if( (appareil_telephone && screen.height > screen.width && screen.width < 768 || screen.width > screen.height && screen.height < 768)) {
         window.location.replace("./m-index.html");
 }
 
