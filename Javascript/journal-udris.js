@@ -225,25 +225,16 @@ function VerifierContenuPage() {
     
             pages[i].classList.add("recto");
 
-            if (false) {
-
-                    pages[i].addEventListener("touchstart", function(e) { InformationDebutToucher(e) });
-                    pages[i].addEventListener("touchend", function(e) { InformationFinToucher(this, e) });
-
-            }
     
-            else {
+            pages[i].addEventListener("click", function(e) { 
     
-                pages[i].addEventListener("click", function(e) { 
-        
-                    if (e.target.closest("#containeur-questionaire"))
-                        return;
-        
-                    TournerLesPages(this);
-        
-                });
+                if (e.target.closest("#containeur-questionaire"))
+                    return;
+    
+                TournerLesPages(this);
+    
+            });
 
-            }
         }
 
     }
