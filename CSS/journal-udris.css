@@ -306,14 +306,26 @@ input[type="radio"]:checked + label {
     height: 100%;
 }
 
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    #containeur-livre-udris {
+        width: 35vw;
+    }
+
+}
+
+@media (max-width: 768px)  {
+
+    #containeur-livre-udris {
+        width: 25vw;
+    }
+
+}
+
 @media  (max-width: 1024px) {
 
     body {
         font-size: 0.75rem;
-    }
-
-    #containeur-livre-udris {
-        width: 35vw;
     }
   
     .livre-udris {
