@@ -292,7 +292,11 @@ function RajouterEvenement() {
 
     btnQuestionnaireElement.addEventListener("click", function() {SoumettreReponse();})
 
-    window.addEventListener("resize", function() { RedimensionnerLivre() });
+    window.addEventListener("resize", function() { 
+        this.setTimeout(function(){
+            RedimensionnerLivre()
+        }, 500) 
+    });
 
     for (var i = 0; i < icon_media.length; i++) {
         icon_media[i].addEventListener("click", function() {OuvrirReseauSociaux(this)});
@@ -305,7 +309,7 @@ function RedimensionnerLivre() {
     scaleX = containeurLivreUdris.offsetWidth / livreUdris.offsetWidth;
     scaleY = containeurLivreUdris.offsetHeight / livreUdris.offsetHeight;
 
-    scale = (scaleX > scaleY ? scaleY : scaleX);
+    scale = (scaleX > scaleY ? scaleX : scaleY);
 
     livreUdris.setAttribute('style', '-webkit-transform:scale(' + scale + ');');
 }
