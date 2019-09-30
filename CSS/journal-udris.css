@@ -311,6 +311,10 @@ input[type="radio"]:checked + label {
     body {
         font-size: 0.75rem;
     }
+
+    #containeur-livre-udris {
+        width: 30vw;
+    }
   
     .livre-udris {
         height: 284.49px;

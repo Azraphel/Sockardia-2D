@@ -524,7 +524,7 @@ window.addEventListener("load", function() {
 
     setTimeout(function() {
         
-        if (false) {
+        if ( navigateur_internet_explorer || navigateur_safari) {
             document.getElementById("containeur-information").textContent = "Veuillez utilisez un navigateur plus récent tel que: Brave, Firefox, Chrome ou Edge.";
         }
         else {
