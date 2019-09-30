@@ -313,7 +313,7 @@ input[type="radio"]:checked + label {
     }
 
     #containeur-livre-udris {
-        width: 10%;
+        width: 40vw;
     }
   
     .livre-udris {

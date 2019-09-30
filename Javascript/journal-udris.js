@@ -305,7 +305,7 @@ function RedimensionnerLivre() {
     scaleX = containeurLivreUdris.offsetWidth / livreUdris.offsetWidth;
     scaleY = containeurLivreUdris.offsetHeight / livreUdris.offsetHeight;
 
-    scale = (scaleX > scaleY ? scaleX : scaleY);
+    scale = (scaleX > scaleY ? scaleY : scaleX);
 
     livreUdris.setAttribute('style', '-webkit-transform:scale(' + scale + ');');
 }
