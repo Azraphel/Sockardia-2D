@@ -317,7 +317,7 @@ input[type="radio"]:checked + label {
 @media (max-width: 768px)  {
 
     #containeur-livre-udris {
-        width: 25vw;
+        width: 20vw;
     }
 
 }
