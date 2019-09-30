@@ -309,7 +309,7 @@ input[type="radio"]:checked + label {
 @media (min-width: 768px) and (max-width: 1024px) {
 
     #containeur-livre-udris {
-        width: 35vw;
+        width: 30vw;
     }
 
 }
@@ -317,7 +317,7 @@ input[type="radio"]:checked + label {
 @media (max-width: 768px)  {
 
     #containeur-livre-udris {
-        width: 25vw;
+        width: 20vw;
     }
 
 }
