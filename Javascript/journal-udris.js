@@ -225,7 +225,7 @@ function VerifierContenuPage() {
     
             pages[i].classList.add("recto");
 
-            if (isMobile.phone) {
+            if (false) {
 
                     pages[i].addEventListener("touchstart", function(e) { InformationDebutToucher(e) });
                     pages[i].addEventListener("touchend", function(e) { InformationFinToucher(this, e) });
