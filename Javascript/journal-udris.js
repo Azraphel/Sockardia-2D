@@ -359,6 +359,7 @@ function VerifierContenuPage() {
 
 /**
  * Lier les evenement aux differents éléments
+ * et instancier les variables
  */
 function RajouterEvenement() {
 
@@ -393,6 +394,165 @@ function RajouterEvenement() {
     for (var i = 0; i < icon_media.length; i++) {
         icon_media[i].addEventListener("click", function() {OuvrirReseauSociaux(this)});
     }
+
+
+
+
+    /**
+     * Soumet la reponse que l'utilisateur a donné
+     * comme répnse à la question du questionnaire.
+     */
+    function SoumettreReponse() {
+    
+        if (containerExplicationQuestionnaire.classList.contains("montrer")) {
+            
+            containerExplicationQuestionnaire.classList.remove("montrer");
+    
+            MettreAJourQuestionDuQuestionnaire();
+            
+            setTimeout(function(){
+                containeurQuestionReponse.insertBefore(btnQuestionnaireElement.parentElement, divBarProgression.parentElement);
+                containeurQuestionReponse.classList.add("montrer");
+            }, 1000);
+    
+        }
+    
+        else if (containeurQuestionReponse.classList.contains("montrer")) {
+    
+            if (EntreReponseOui.checked || EntreReponseNon.checked) {
+                containeurQuestionReponse.classList.remove("montrer");
+                nbrQuestionRepondu++;
+    
+                var reponse_choisi = EntreReponseOui.checked ? EntreReponseOui : EntreReponseNon,
+                    valeur_reponse_choisi = reponse_choisi.value.split(",");
+    
+                objRepondantCaracteristique[valeur_reponse_choisi[0]][valeur_reponse_choisi[1]]++;
+    
+                reponse_choisi.checked = false;
+    
+                setTimeout(function(){
+    
+                    if (nbrQuestionRepondu < nombreQuestion) {
+                        if (nbrQuestionRepondu == nombreQuestion - 1)
+                            btnQuestionnaireElement.src = objButtonQuiz.Soumettre;
+    
+                            MettreAJourQuestionDuQuestionnaire();
+                            containeurQuestionReponse.classList.add("montrer");
+                    }
+    
+                    else {
+                        btnQuestionnaireElement.src = objButtonQuiz.Recommencer;
+                        containeurResultatQuestionnaire.appendChild(btnQuestionnaireElement.parentElement);
+                        CalculerResultatQuiz();
+                        containeurResultatQuestionnaire.classList.add("montrer");
+                    }
+    
+                }, 1000);
+            }
+    
+        }
+    
+        else if (containeurResultatQuestionnaire.classList.contains("montrer")) {
+            RecommencerQuiz();
+        }
+        
+    
+    
+    
+        /**
+         * Enleve la selection pour la reponse et change
+         * la question poser.
+         */
+        function MettreAJourQuestionDuQuestionnaire() {
+            var type_de_question,
+                valeur_question,
+                valeur_reponse_question;
+    
+            question.textContent = objQuestionQuestionnaire[nbrQuestionRepondu]["question_text"];
+            type_de_question = objQuestionQuestionnaire[nbrQuestionRepondu]["type"].split(",")[0];
+            valeur_question = objQuestionQuestionnaire[nbrQuestionRepondu]["type"].split(",")[1];
+            valeur_reponse_question = type_de_question + ",";
+            
+            EntreReponseOui.value = valeur_reponse_question + valeur_question;
+    
+            if (type_de_question == "jugement")
+                EntreReponseNon.value = valeur_reponse_question + (valeur_question == "penseur" ? "emotionel" : "penseur");
+    
+            else if (type_de_question == "social")
+                EntreReponseNon.value = valeur_reponse_question + (valeur_question == "introverti" ? "extraverti" : "introverti");
+    
+            var pourcentageProgressionQuestion = Math.round(nbrQuestionRepondu / (nombreQuestion-1) * 100) + '%';
+            divBarProgression.textContent = pourcentageProgressionQuestion;
+            divBarProgression.style.width = pourcentageProgressionQuestion;
+        }
+    
+    
+    
+    
+        /**
+         * Calcule grâce à toutes les réponses données
+         * le resultat du questionnaire et met à jour
+         * la fenêtre de resultat de celui-ci.
+         */
+        function CalculerResultatQuiz() {
+            var pointage_jugement = objRepondantCaracteristique.jugement.emotionel - objRepondantCaracteristique.jugement.penseur,
+                pointage_social = objRepondantCaracteristique.social.extraverti - objRepondantCaracteristique.social.introverti;
+    
+            var resultat_scoial = pointage_social > 0 ? "extraverti" : "introverti";
+            var resultat_jugement = pointage_jugement <= 1 && pointage_jugement >= -1 ? "special" : pointage_jugement > 0 ? "emotionel" : "penseur";
+    
+            var resultat = objCaracteristiqueElement[resultat_scoial][resultat_jugement];
+            
+            elNomResultatElement.textContent = objDescriptionElement[resultat]["nom"];
+            imgResultatElement.src = objDescriptionElement[resultat]["image"];
+            elDescriptionResultatElement.textContent = objDescriptionElement[resultat]["text"];
+    
+        }
+    
+    
+    
+    
+        /**
+         * Recommence le quiz et réinitialise les
+         * resultats et les données du questionnaire.
+         */
+        function RecommencerQuiz() {
+            
+            for (type_social in objRepondantCaracteristique) {
+    
+                if (!objRepondantCaracteristique.hasOwnProperty(type_social))
+                    continue;
+    
+                object_social = objRepondantCaracteristique[type_social];
+    
+                for (type_jugement in object_social) {
+                    
+                    if (!object_social.hasOwnProperty(type_jugement)) 
+                        continue;
+    
+                    object_social[type_jugement] = 0;
+    
+                }
+                
+            }
+    
+            nbrQuestionRepondu = 0;
+    
+            containeurResultatQuestionnaire.classList.remove("montrer");
+    
+            setTimeout(function() {
+    
+                btnQuestionnaireElement.src = objButtonQuiz.Suivant;
+    
+                containerExplicationQuestionnaire.appendChild(btnQuestionnaireElement.parentElement);
+                containerExplicationQuestionnaire.classList.add("montrer");
+            
+            }, 1000);
+    
+    
+        }
+    
+    }
 }
 
 
@@ -411,165 +571,6 @@ function RedimensionnerLivre() {
     scale = (scaleX > scaleY ? scaleX : scaleY);
 
     livreUdris.setAttribute('style', '-webkit-transform:scale(' + scale + ');');
-}
-
-
-
-
-/**
- * Soumet la reponse que l'utilisateur a donné
- * comme répnse à la question du questionnaire.
- */
-function SoumettreReponse() {
-
-    if (containerExplicationQuestionnaire.classList.contains("montrer")) {
-        
-        containerExplicationQuestionnaire.classList.remove("montrer");
-
-        MettreAJourQuestionDuQuestionnaire();
-        
-        setTimeout(function(){
-            containeurQuestionReponse.insertBefore(btnQuestionnaireElement.parentElement, divBarProgression.parentElement);
-            containeurQuestionReponse.classList.add("montrer");
-        }, 1000);
-
-    }
-
-    else if (containeurQuestionReponse.classList.contains("montrer")) {
-
-        if (EntreReponseOui.checked || EntreReponseNon.checked) {
-            containeurQuestionReponse.classList.remove("montrer");
-            nbrQuestionRepondu++;
-
-            var reponse_choisi = EntreReponseOui.checked ? EntreReponseOui : EntreReponseNon,
-                valeur_reponse_choisi = reponse_choisi.value.split(",");
-
-            objRepondantCaracteristique[valeur_reponse_choisi[0]][valeur_reponse_choisi[1]]++;
-
-            reponse_choisi.checked = false;
-
-            setTimeout(function(){
-
-                if (nbrQuestionRepondu < nombreQuestion) {
-                    if (nbrQuestionRepondu == nombreQuestion - 1)
-                        btnQuestionnaireElement.src = objButtonQuiz.Soumettre;
-
-                        MettreAJourQuestionDuQuestionnaire();
-                        containeurQuestionReponse.classList.add("montrer");
-                }
-
-                else {
-                    btnQuestionnaireElement.src = objButtonQuiz.Recommencer;
-                    containeurResultatQuestionnaire.appendChild(btnQuestionnaireElement.parentElement);
-                    CalculerResultatQuiz();
-                    containeurResultatQuestionnaire.classList.add("montrer");
-                }
-
-            }, 1000);
-        }
-
-    }
-
-    else if (containeurResultatQuestionnaire.classList.contains("montrer")) {
-        RecommencerQuiz();
-    }
-    
-
-
-
-    /**
-     * Enleve la selection pour la reponse et change
-     * la question poser.
-     */
-    function MettreAJourQuestionDuQuestionnaire() {
-        var type_de_question,
-            valeur_question,
-            valeur_reponse_question;
-
-        question.textContent = objQuestionQuestionnaire[nbrQuestionRepondu]["question_text"];
-        type_de_question = objQuestionQuestionnaire[nbrQuestionRepondu]["type"].split(",")[0];
-        valeur_question = objQuestionQuestionnaire[nbrQuestionRepondu]["type"].split(",")[1];
-        valeur_reponse_question = type_de_question + ",";
-        
-        EntreReponseOui.value = valeur_reponse_question + valeur_question;
-
-        if (type_de_question == "jugement")
-            EntreReponseNon.value = valeur_reponse_question + (valeur_question == "penseur" ? "emotionel" : "penseur");
-
-        else if (type_de_question == "social")
-            EntreReponseNon.value = valeur_reponse_question + (valeur_question == "introverti" ? "extraverti" : "introverti");
-
-        var pourcentageProgressionQuestion = Math.round(nbrQuestionRepondu / (nombreQuestion-1) * 100) + '%';
-        divBarProgression.textContent = pourcentageProgressionQuestion;
-        divBarProgression.style.width = pourcentageProgressionQuestion;
-    }
-
-
-
-
-    /**
-     * Calcule grâce à toutes les réponses données
-     * le resultat du questionnaire et met à jour
-     * la fenêtre de resultat de celui-ci.
-     */
-    function CalculerResultatQuiz() {
-        var pointage_jugement = objRepondantCaracteristique.jugement.emotionel - objRepondantCaracteristique.jugement.penseur,
-            pointage_social = objRepondantCaracteristique.social.extraverti - objRepondantCaracteristique.social.introverti;
-
-        var resultat_scoial = pointage_social > 0 ? "extraverti" : "introverti";
-        var resultat_jugement = pointage_jugement <= 1 && pointage_jugement >= -1 ? "special" : pointage_jugement > 0 ? "emotionel" : "penseur";
-
-        var resultat = objCaracteristiqueElement[resultat_scoial][resultat_jugement];
-        
-        elNomResultatElement.textContent = objDescriptionElement[resultat]["nom"];
-        imgResultatElement.src = objDescriptionElement[resultat]["image"];
-        elDescriptionResultatElement.textContent = objDescriptionElement[resultat]["text"];
-
-    }
-
-
-
-
-    /**
-     * Recommence le quiz et réinitialise les
-     * resultats et les données du questionnaire.
-     */
-    function RecommencerQuiz() {
-        
-        for (type_social in objRepondantCaracteristique) {
-
-            if (!objRepondantCaracteristique.hasOwnProperty(type_social))
-                continue;
-
-            object_social = objRepondantCaracteristique[type_social];
-
-            for (type_jugement in object_social) {
-                
-                if (!object_social.hasOwnProperty(type_jugement)) 
-                    continue;
-
-                object_social[type_jugement] = 0;
-
-            }
-            
-        }
-
-        nbrQuestionRepondu = 0;
-
-        containeurResultatQuestionnaire.classList.remove("montrer");
-
-        setTimeout(function() {
-
-            btnQuestionnaireElement.src = objButtonQuiz.Suivant;
-
-            containerExplicationQuestionnaire.appendChild(btnQuestionnaireElement.parentElement);
-            containerExplicationQuestionnaire.classList.add("montrer");
-        
-        }, 1000);
-
-
-    }
-
 }
 
 
