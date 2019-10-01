@@ -1,42 +1,45 @@
-var presentPageRecto;
-var containeurLivreUdris;
-var livreUdris;
+var presentPageRecto,
+    containeurLivreUdris,
+    livreUdris;
 
-var user_agent = window.navigator.userAgent;
-var navigateur_internet_explorer = /MSIE|Trident/.test(user_agent);
-var navigateur_safari = /^((?!chrome|android).)*safari/i.test(user_agent);
+var user_agent = window.navigator.userAgent,
+    navigateur_internet_explorer = /MSIE|Trident/.test(user_agent),
+    navigateur_safari = /^((?!chrome|android).)*safari/i.test(user_agent);
 
 var nbrQuestionRepondu = 0;
 
 var containerExplicationQuestionnaire;
 
-var divBarProgression;
-var containeurQuestionReponse;
-var question;
-var EntreReponseOui;
-var EntreReponseNon;
+var divBarProgression,
+    containeurQuestionReponse,
+    question,
+    EntreReponseOui,
+    EntreReponseNon;
 
-var containeurResultatQuestionnaire;
-var imgResultatElement;
-var elNomResultatElement;
-var elDescriptionResultatElement;
+var containeurResultatQuestionnaire,
+    imgResultatElement,
+    elNomResultatElement,
+    elDescriptionResultatElement;
 
 var btnQuestionnaireElement;
 
-var point_de_commencement_x,
-    point_de_commencement_y,
-    distance_traverser,
-    temps_alloue = 500,
-    distance_minimum = 50,
-    temps_ecoule,
-    temps_debut;
 
 
+
+/**
+ * Function pour créer les pages à partir de l'objet
+ * qui contient le text.
+ */
 function CreerPagesAvecText() {
     var divFragment = document.createDocumentFragment();
     var infoElementPage = CreerPage();
     var boolVerso;
     
+    /*
+    Créer les pages avec le text du paragraphe
+    Tourne la page ou créer une nouvelle page pour y
+    rajouter le prochain paragraphe
+    */
     for ( var paragraphe in objTextLivre) {
         
         RajouterTextPage(objTextLivre[paragraphe]);
@@ -53,7 +56,12 @@ function CreerPagesAvecText() {
         }
         
     } 
-    
+
+    /*
+    Si la page recto contient du text et le
+    il n'y a plus de paragraphe, rajouter le
+    la page dans le Fragement.
+    */
     if (infoElementPage.recto.textContent != '') {
         divFragment.appendChild(infoElementPage.page);
     }
@@ -63,6 +71,13 @@ function CreerPagesAvecText() {
 
     livreUdris.insertBefore(divFragment, pagePlatVerso);
 
+
+
+
+    /*
+    Créer la page en objet HTML et retourne
+    un objet avec ses containeurs.
+    */
     function CreerPage() {
         var divPage;
         var divRecto;
@@ -84,11 +99,15 @@ function CreerPagesAvecText() {
                 recto : divRecto,
                 verso : divVerso
                 };
-    
     }
 
-    //Creer div containeur paragraphe avec text et date paragraphe
-    // return un object avec le containeur et le paragraphe du text
+
+
+
+    /*
+    Creer div containeur paragraphe avec text et date paragraphe
+    return un object avec le containeur et le paragraphe du text
+     */
     function CreerContaineurParagraphe(paragraphe) {
         var divContaineurParagraphe = document.createElement('div');
             divContaineurParagraphe.className = 'containeur-paragraphe';
@@ -113,6 +132,16 @@ function CreerPagesAvecText() {
         }
     }
 
+
+
+
+    /*
+    Rajoute le text dans la page en vérifiant
+    que celui-ci n'est pas plus grand que la page.
+    Si la page est pleine, rajouter la page dans
+    le Fragment. Et rajouter le reste du text dans une
+    autre page.
+    */
     function RajouterTextPage(paragraphe) {
 
         var infoElementParagraphe = CreerContaineurParagraphe(paragraphe);
@@ -133,7 +162,6 @@ function CreerPagesAvecText() {
                     textARajouter = tabParagrapheText.slice(i).join(' ');
                 else
                     textARajouter = null;
-
             }
 
         }
@@ -141,31 +169,29 @@ function CreerPagesAvecText() {
         if ((boolTextAjouter && textARajouter) ||
             !boolTextAjouter) {
 
+                //met la apge qu'on a deja dans le livre
                 if (boolVerso) {
-                    
-                    //met la apge qu'on a deja dans le livre
-                    var nombreChildNode = livreUdris.childNodes.length;
-                    var dernierElementLivre = livreUdris.childNodes[nombreChildNode - 1];
                     divFragment.appendChild(infoElementPage.page);
-                    
                     infoElementPage = CreerPage();
                     boolVerso = false;
-        
                 }
         
                 //sinon on tourne la page et on place le text sur le verso
-                else {
-
+                else
                     boolVerso = true;
-
-                }
                 
-
-
             RajouterTextPage((textARajouter ? textARajouter : paragraphe));
         }
     }
 
+
+
+
+
+    /*
+    Verifie si le paragraphe est plus grand que la page
+    et retourne la reponse.
+    */
     function VerifierTailleContenuPage(infoElementParagraphe) {
         
         var testDivPage = infoElementPage.page.cloneNode(true);
@@ -186,6 +212,17 @@ function CreerPagesAvecText() {
     }
 
 }
+
+
+
+
+/**
+ * Demande de Crérer les pages avec le text.
+ * Verfie si tous les paragraphe ne depasse pas les pages
+ * dans le cas contraire, efface les pages et les créer
+ * a nouveau avant de vérifier a nouveau. Sinon, rajoute
+ * les évenements sur les pages pour les tourner. 
+ */
 
 function VerifierContenuPage() {
     CreerPagesAvecText();
@@ -209,10 +246,9 @@ function VerifierContenuPage() {
             pageCreer[i].remove();
         }
 
-        
-
         VerifierContenuPage();
     }
+
     else {
 
         var pages = document.getElementsByClassName("page");        
@@ -225,11 +261,9 @@ function VerifierContenuPage() {
     
             pages[i].classList.add("recto");
 
-    
             pages[i].addEventListener("click", function(e) { 
     
-                if (e.target.closest("#containeur-questionaire"))
-                    return;
+                if (e.target.closest("#containeur-questionaire")) return;
     
                 TournerLesPages(this);
     
@@ -238,27 +272,94 @@ function VerifierContenuPage() {
         }
 
     }
-
-    function InformationDebutToucher(e) {
-        var touchee = e.changedTouches[0];
-            distance_traverser = 0;
-            point_de_commencement_x = touchee.pageX;
-            point_de_commencement_y = touchee.pageY;
-            temps_debut = new Date().getTime();
-    }
     
-    function InformationFinToucher(pageToucher, e) {
-        var touchee = e.changedTouches[0];
-        distance_traverser = touchee.pageX - point_de_commencement_x;
-        temps_ecoule = new Date().getTime() - temps_debut;
 
-        if (Math.abs(distance_traverser) >= distance_minimum && temps_ecoule <= temps_alloue) {
-            TournerLesPages(pageToucher, (distance_traverser > 0 ? 'gauche' : 'droite'));
+
+
+    /**
+     * Function pour tourner les page lorsque celle-ci
+     * est cliquer ou toucher.
+     */
+    function TournerLesPages(page_cliquer, direction) {
+
+        if (document.getElementsByClassName("page-qui-tourne").length > 0) {
+            return;
         }
+        
+        if (direction == null && page_cliquer.classList.contains("recto") || direction && direction == 'droite') {
+            
+            presentPageRecto.classList.add("page-qui-tourne");
+            presentPageRecto.classList.remove("recto");
+            presentPageRecto.classList.add("verso");
+
+            if (livreUdris.classList.contains("page-couverture"))
+                livreUdris.classList.remove("page-couverture");
+
+            if (presentPageRecto.nextElementSibling == null)
+                livreUdris.classList.add("plat-verso");
+
+            if (!livreUdris.classList.contains('plat-verso')) {
+                presentPageRecto.nextElementSibling.classList.add('page-en-cours-de-lecture');
+            }
+            
+            setTimeout(function () {
+                
+                presentPageRecto.classList.remove("page-qui-tourne");
+                presentPageRecto.classList.add("page-en-cours-de-lecture");
+                
+                if (presentPageRecto.previousElementSibling != null) {
+                    presentPageRecto.previousElementSibling.classList.remove("page-en-cours-de-lecture");
+                }
+
+                if (presentPageRecto.nextElementSibling != null) {
+                    presentPageRecto = presentPageRecto.nextElementSibling;
+                }
+                
+            }, 500);
+
+        }
+
+        else if (!direction || direction && direction == 'gauche') {
+            
+            if (presentPageRecto.classList.contains("recto")) {
+                presentPageRecto = presentPageRecto.previousElementSibling;
+
+                if (presentPageRecto.previousElementSibling == null)
+                    livreUdris.classList.add("page-couverture");
+
+            }
+            else {
+                livreUdris.classList.remove("plat-verso");
+                containeurLivreUdris.classList.add("ouvert");
+            }
+            
+            presentPageRecto.classList.remove("verso");
+            presentPageRecto.classList.add("page-qui-tourne", "recto");
+            
+            if (presentPageRecto.previousElementSibling != null) {
+                presentPageRecto.previousElementSibling.classList.add("page-en-cours-de-lecture");
+            }
+            
+            setTimeout(function () {
+                
+                presentPageRecto.classList.remove("page-qui-tourne");
+
+                if (presentPageRecto.nextElementSibling != null)
+                    presentPageRecto.nextElementSibling.classList.remove("page-en-cours-de-lecture");
+            
+            }, 750);
+        }
+
     }
 
 }
 
+
+
+
+/**
+ * Lier les evenement aux differents éléments
+ */
 function RajouterEvenement() {
 
     livreUdris = document.getElementsByClassName("livre-udris")[0];
@@ -294,6 +395,13 @@ function RajouterEvenement() {
     }
 }
 
+
+
+
+/*
+Redimensionne le livre a l'échelle de la
+taille du navigateur
+*/
 function RedimensionnerLivre() {
     var scale, scaleX = 1, scaleY = 1;
 
@@ -305,78 +413,13 @@ function RedimensionnerLivre() {
     livreUdris.setAttribute('style', '-webkit-transform:scale(' + scale + ');');
 }
 
-function TournerLesPages(page_cliquer, direction) {
 
-    if (document.getElementsByClassName("page-qui-tourne").length > 0) {
-        return;
-    }
-    
-    if (direction == null && page_cliquer.classList.contains("recto") || direction && direction == 'droite') {
-        
-        presentPageRecto.classList.add("page-qui-tourne");
-        presentPageRecto.classList.remove("recto");
-        presentPageRecto.classList.add("verso");
 
-        if (livreUdris.classList.contains("page-couverture"))
-            livreUdris.classList.remove("page-couverture");
 
-        if (presentPageRecto.nextElementSibling == null)
-            livreUdris.classList.add("plat-verso");
-
-        if (!livreUdris.classList.contains('plat-verso')) {
-            presentPageRecto.nextElementSibling.classList.add('page-en-cours-de-lecture');
-        }
-        
-        setTimeout(function () {
-            
-            presentPageRecto.classList.remove("page-qui-tourne");
-            presentPageRecto.classList.add("page-en-cours-de-lecture");
-            
-            if (presentPageRecto.previousElementSibling != null) {
-                presentPageRecto.previousElementSibling.classList.remove("page-en-cours-de-lecture");
-            }
-
-            if (presentPageRecto.nextElementSibling != null) {
-                presentPageRecto = presentPageRecto.nextElementSibling;
-            }
-            
-        }, 500);
-
-    }
-
-    else if (!direction || direction && direction == 'gauche') {
-        
-        if (presentPageRecto.classList.contains("recto")) {
-            presentPageRecto = presentPageRecto.previousElementSibling;
-
-            if (presentPageRecto.previousElementSibling == null)
-                livreUdris.classList.add("page-couverture");
-
-        }
-        else {
-            livreUdris.classList.remove("plat-verso");
-            containeurLivreUdris.classList.add("ouvert");
-        }
-        
-        presentPageRecto.classList.remove("verso");
-        presentPageRecto.classList.add("page-qui-tourne", "recto");
-        
-        if (presentPageRecto.previousElementSibling != null) {
-            presentPageRecto.previousElementSibling.classList.add("page-en-cours-de-lecture");
-        }
-        
-        setTimeout(function () {
-            
-            presentPageRecto.classList.remove("page-qui-tourne");
-
-            if (presentPageRecto.nextElementSibling != null)
-                presentPageRecto.nextElementSibling.classList.remove("page-en-cours-de-lecture");
-        
-        }, 750);
-    }
-
-}
-
+/**
+ * Soumet la reponse que l'utilisateur a donné
+ * comme répnse à la question du questionnaire.
+ */
 function SoumettreReponse() {
 
     if (containerExplicationQuestionnaire.classList.contains("montrer")) {
@@ -430,83 +473,112 @@ function SoumettreReponse() {
     else if (containeurResultatQuestionnaire.classList.contains("montrer")) {
         RecommencerQuiz();
     }
-
-}
-
-function MettreAJourQuestionDuQuestionnaire() {
-    var type_de_question,
-        valeur_question,
-        valeur_reponse_question;
-
-    question.textContent = objQuestionQuestionnaire[nbrQuestionRepondu]["question_text"];
-    type_de_question = objQuestionQuestionnaire[nbrQuestionRepondu]["type"].split(",")[0];
-    valeur_question = objQuestionQuestionnaire[nbrQuestionRepondu]["type"].split(",")[1];
-    valeur_reponse_question = type_de_question + ",";
     
-    EntreReponseOui.value = valeur_reponse_question + valeur_question;
 
-    if (type_de_question == "jugement")
-        EntreReponseNon.value = valeur_reponse_question + (valeur_question == "penseur" ? "emotionel" : "penseur");
 
-    else if (type_de_question == "social")
-        EntreReponseNon.value = valeur_reponse_question + (valeur_question == "introverti" ? "extraverti" : "introverti");
 
-    var pourcentageProgressionQuestion = Math.round(nbrQuestionRepondu / (nombreQuestion-1) * 100) + '%';
-    divBarProgression.textContent = pourcentageProgressionQuestion;
-    divBarProgression.style.width = pourcentageProgressionQuestion;
-}
+    /**
+     * Enleve la selection pour la reponse et change
+     * la question poser.
+     */
+    function MettreAJourQuestionDuQuestionnaire() {
+        var type_de_question,
+            valeur_question,
+            valeur_reponse_question;
 
-function CalculerResultatQuiz() {
-    var pointage_jugement = objRepondantCaracteristique.jugement.emotionel - objRepondantCaracteristique.jugement.penseur,
-        pointage_social = objRepondantCaracteristique.social.extraverti - objRepondantCaracteristique.social.introverti;
-
-    var resultat_scoial = pointage_social > 0 ? "extraverti" : "introverti";
-    var resultat_jugement = pointage_jugement <= 1 && pointage_jugement >= -1 ? "special" : pointage_jugement > 0 ? "emotionel" : "penseur";
-
-    var resultat = objCaracteristiqueElement[resultat_scoial][resultat_jugement];
-    
-    elNomResultatElement.textContent = objDescriptionElement[resultat]["nom"];
-    imgResultatElement.src = objDescriptionElement[resultat]["image"];
-    elDescriptionResultatElement.textContent = objDescriptionElement[resultat]["text"];
-
-}
-
-function RecommencerQuiz() {
-    
-    for (type_social in objRepondantCaracteristique) {
-
-        if (!objRepondantCaracteristique.hasOwnProperty(type_social))
-            continue;
-
-        object_social = objRepondantCaracteristique[type_social];
-
-        for (type_jugement in object_social) {
-            
-            if (!object_social.hasOwnProperty(type_jugement)) 
-                continue;
-
-            object_social[type_jugement] = 0;
-
-        }
+        question.textContent = objQuestionQuestionnaire[nbrQuestionRepondu]["question_text"];
+        type_de_question = objQuestionQuestionnaire[nbrQuestionRepondu]["type"].split(",")[0];
+        valeur_question = objQuestionQuestionnaire[nbrQuestionRepondu]["type"].split(",")[1];
+        valeur_reponse_question = type_de_question + ",";
         
+        EntreReponseOui.value = valeur_reponse_question + valeur_question;
+
+        if (type_de_question == "jugement")
+            EntreReponseNon.value = valeur_reponse_question + (valeur_question == "penseur" ? "emotionel" : "penseur");
+
+        else if (type_de_question == "social")
+            EntreReponseNon.value = valeur_reponse_question + (valeur_question == "introverti" ? "extraverti" : "introverti");
+
+        var pourcentageProgressionQuestion = Math.round(nbrQuestionRepondu / (nombreQuestion-1) * 100) + '%';
+        divBarProgression.textContent = pourcentageProgressionQuestion;
+        divBarProgression.style.width = pourcentageProgressionQuestion;
     }
 
-    nbrQuestionRepondu = 0;
 
-    containeurResultatQuestionnaire.classList.remove("montrer");
 
-    setTimeout(function() {
 
-        btnQuestionnaireElement.src = objButtonQuiz.Suivant;
+    /**
+     * Calcule grâce à toutes les réponses données
+     * le resultat du questionnaire et met à jour
+     * la fenêtre de resultat de celui-ci.
+     */
+    function CalculerResultatQuiz() {
+        var pointage_jugement = objRepondantCaracteristique.jugement.emotionel - objRepondantCaracteristique.jugement.penseur,
+            pointage_social = objRepondantCaracteristique.social.extraverti - objRepondantCaracteristique.social.introverti;
 
-        containerExplicationQuestionnaire.appendChild(btnQuestionnaireElement.parentElement);
-        containerExplicationQuestionnaire.classList.add("montrer");
-    
-    }, 1000);
+        var resultat_scoial = pointage_social > 0 ? "extraverti" : "introverti";
+        var resultat_jugement = pointage_jugement <= 1 && pointage_jugement >= -1 ? "special" : pointage_jugement > 0 ? "emotionel" : "penseur";
 
+        var resultat = objCaracteristiqueElement[resultat_scoial][resultat_jugement];
+        
+        elNomResultatElement.textContent = objDescriptionElement[resultat]["nom"];
+        imgResultatElement.src = objDescriptionElement[resultat]["image"];
+        elDescriptionResultatElement.textContent = objDescriptionElement[resultat]["text"];
+
+    }
+
+
+
+
+    /**
+     * Recommence le quiz et réinitialise les
+     * resultats et les données du questionnaire.
+     */
+    function RecommencerQuiz() {
+        
+        for (type_social in objRepondantCaracteristique) {
+
+            if (!objRepondantCaracteristique.hasOwnProperty(type_social))
+                continue;
+
+            object_social = objRepondantCaracteristique[type_social];
+
+            for (type_jugement in object_social) {
+                
+                if (!object_social.hasOwnProperty(type_jugement)) 
+                    continue;
+
+                object_social[type_jugement] = 0;
+
+            }
+            
+        }
+
+        nbrQuestionRepondu = 0;
+
+        containeurResultatQuestionnaire.classList.remove("montrer");
+
+        setTimeout(function() {
+
+            btnQuestionnaireElement.src = objButtonQuiz.Suivant;
+
+            containerExplicationQuestionnaire.appendChild(btnQuestionnaireElement.parentElement);
+            containerExplicationQuestionnaire.classList.add("montrer");
+        
+        }, 1000);
+
+
+    }
 
 }
 
+
+
+
+/**
+ * Ouvrir le reaseau social sur la page
+ * fait pour le site.
+ */
 function OuvrirReseauSociaux(icon_toucher) {
     var icon_toucher_media = icon_toucher.id.replace('icon-', '');
     
@@ -515,6 +587,13 @@ function OuvrirReseauSociaux(icon_toucher) {
     nouveau_onglet.focus();
 }
 
+
+
+
+/**
+ * Lorsque la page est prête, commencer function
+ * de la page.
+ */
 window.addEventListener("load", function() {
 
     setTimeout(function() {
