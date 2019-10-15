@@ -58,7 +58,7 @@ body {
 #containeur-livre-udris {
     position: absolute;
     height: auto;
-    width: 40vw;
+    width: 33vw;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -317,7 +317,7 @@ input[type="radio"]:checked + label {
 @media (max-width: 768px)  {
 
     #containeur-livre-udris {
-        width: 20vw;
+        width: 18vw;
     }
 
 }
