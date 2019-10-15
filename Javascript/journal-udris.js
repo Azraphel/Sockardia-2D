@@ -80,195 +80,193 @@ function VerifierContenuPage() {
 
         }
 
+    }
 
 
-
+    /**
+     * Function pour créer les pages à partir de l'objet
+     * qui contient le text.
+     */
+    function CreerPagesAvecText() {
+        var divFragment = document.createDocumentFragment();
+        var infoElementPage = CreerPage();
+        var boolVerso;
+        
         /**
-         * Function pour créer les pages à partir de l'objet
-         * qui contient le text.
+         * Créer les pages avec le text du paragraphe
+         * Tourne la page ou créer une nouvelle page pour y
+         * rajouter le prochain paragraphe
          */
-        function CreerPagesAvecText() {
-            var divFragment = document.createDocumentFragment();
-            var infoElementPage = CreerPage();
-            var boolVerso;
+        for ( var paragraphe in objTextLivre) {
             
-            /**
-             * Créer les pages avec le text du paragraphe
-             * Tourne la page ou créer une nouvelle page pour y
-             * rajouter le prochain paragraphe
-             */
-            for ( var paragraphe in objTextLivre) {
-                
-                RajouterTextPage(objTextLivre[paragraphe]);
-        
-                if (boolVerso) {
-        
-                    divFragment.appendChild(infoElementPage.page);
-                    infoElementPage = CreerPage();
-                    boolVerso = false;
-        
-                }
-                else {
-                    boolVerso = true;
-                }
-                
-            } 
-        
-            /**
-             * Si la page recto contient du text et le
-             * il n'y a plus de paragraphe, rajouter le
-             * la page dans le Fragement.
-             */
-            if (infoElementPage.recto.textContent != '') {
+            RajouterTextPage(objTextLivre[paragraphe]);
+    
+            if (boolVerso) {
+    
                 divFragment.appendChild(infoElementPage.page);
+                infoElementPage = CreerPage();
+                boolVerso = false;
+    
             }
-        
-            var tabPagesCouverture = document.getElementsByClassName('page');
-            var pagePlatVerso = tabPagesCouverture[tabPagesCouverture.length - 1];
-        
-            livreUdris.insertBefore(divFragment, pagePlatVerso);
-        
-        
-        
-        
-            /**
-             * Créer la page en objet HTML et retourne
-             * un objet avec ses containeurs.
-             */
-            function CreerPage() {
-                var divPage;
-                var divRecto;
-                var divVerso;
-                    
-                var divPage = document.createElement('div');
-                    divPage.className ='page page-simple';
+            else {
+                boolVerso = true;
+            }
             
-                var divRecto = document.createElement('div');
-                    divRecto.className = 'recto';
-                    divPage.appendChild(divRecto);
-            
-                var divVerso = document.createElement('div');
-                    divVerso.className = 'verso';
-                    divPage.appendChild(divVerso);
-            
-                return {
-                        page : divPage,
-                        recto : divRecto,
-                        verso : divVerso
-                        };
-            }
-        
-        
-        
-        
-            /**
-             * Creer div containeur paragraphe avec text et date paragraphe
-             * return un object avec le containeur et le paragraphe du text
-             */
-            function CreerContaineurParagraphe(paragraphe) {
-                var divContaineurParagraphe = document.createElement('div');
-                    divContaineurParagraphe.className = 'containeur-paragraphe';
-                
-                //s'il s'agit d'un object, il faut rajouter la date
-                if (paragraphe.date) {
-        
-                    var date = document.createElement('b');
-                        date.textContent = paragraphe.date;
-                        divContaineurParagraphe.appendChild(date);
-                
-                }
-        
-                //Creer le paragraphe avec le text. si paragraphe est juste de text le rajouter sinon prendre le text de l'object
-                var paragrapheText = document.createElement('p');
-                    paragrapheText.textContent = (paragraphe.date ? paragraphe.text : paragraphe);
-                    divContaineurParagraphe.appendChild(paragrapheText);
-        
-                return {
-                    containeur: divContaineurParagraphe,
-                    paragraphe: paragrapheText
-                }
-            }
-        
-        
-        
-        
-            /**
-             * Rajoute le text dans la page en vérifiant
-             * que celui-ci n'est pas plus grand que la page.
-             * Si la page est pleine, rajouter la page dans
-             * le Fragment. Et rajouter le reste du text dans une
-             * autre page.
-             */
-            function RajouterTextPage(paragraphe) {
-        
-                var infoElementParagraphe = CreerContaineurParagraphe(paragraphe);
-        
-                var tabParagrapheText = infoElementParagraphe.paragraphe.textContent.split(' ');
-                var boolTextAjouter;
-                var textARajouter;
-        
-                for (var i = tabParagrapheText.length; i >= 0 && !boolTextAjouter; i--) {
-                    infoElementParagraphe.paragraphe.textContent = tabParagrapheText.slice(0, i).join(' ');
-                    
-                    if ( VerifierTailleContenuPage(infoElementParagraphe)) {
-        
-                        infoElementPage[(boolVerso ? 'verso' : 'recto')].appendChild(infoElementParagraphe.containeur);
-                        boolTextAjouter = true;
-                        
-                        if ( i < tabParagrapheText.length - 1)
-                            textARajouter = tabParagrapheText.slice(i).join(' ');
-                        else
-                            textARajouter = null;
-                    }
-        
-                }
-        
-                if ((boolTextAjouter && textARajouter) ||
-                    !boolTextAjouter) {
-        
-                        //met la apge qu'on a deja dans le livre
-                        if (boolVerso) {
-                            divFragment.appendChild(infoElementPage.page);
-                            infoElementPage = CreerPage();
-                            boolVerso = false;
-                        }
-                
-                        //sinon on tourne la page et on place le text sur le verso
-                        else
-                            boolVerso = true;
-                        
-                    RajouterTextPage((textARajouter ? textARajouter : paragraphe));
-                }
-            }
-        
-        
-        
-        
-        
-            /**
-             * Verifie si le paragraphe est plus grand que la page
-             * et retourne la reponse.
-             */
-            function VerifierTailleContenuPage(infoElementParagraphe) {
-                
-                var testDivPage = infoElementPage.page.cloneNode(true);
-                    testDivPage.className += ' test';
-                    
-                var testZoneText = testDivPage.getElementsByClassName(boolVerso ? 'verso' : 'recto')[0];
-                    testZoneText.appendChild(infoElementParagraphe.containeur);
-                
-                livreUdris.appendChild(testDivPage);
-        
-                var divPageBottom = testDivPage.getBoundingClientRect().bottom;
-                var containeurParagrapheBottom = infoElementParagraphe.containeur.getBoundingClientRect().bottom;
-                
-                testDivPage.remove();
-        
-        
-                return (containeurParagrapheBottom <= divPageBottom);
-            }
-        
+        } 
+    
+        /**
+         * Si la page recto contient du text et le
+         * il n'y a plus de paragraphe, rajouter le
+         * la page dans le Fragement.
+         */
+        if (infoElementPage.recto.textContent != '') {
+            divFragment.appendChild(infoElementPage.page);
         }
+    
+        var tabPagesCouverture = document.getElementsByClassName('page');
+        var pagePlatVerso = tabPagesCouverture[tabPagesCouverture.length - 1];
+    
+        livreUdris.insertBefore(divFragment, pagePlatVerso);
+    
+    
+    
+    
+        /**
+         * Créer la page en objet HTML et retourne
+         * un objet avec ses containeurs.
+         */
+        function CreerPage() {
+            var divPage;
+            var divRecto;
+            var divVerso;
+                
+            var divPage = document.createElement('div');
+                divPage.className ='page page-simple';
+        
+            var divRecto = document.createElement('div');
+                divRecto.className = 'recto';
+                divPage.appendChild(divRecto);
+        
+            var divVerso = document.createElement('div');
+                divVerso.className = 'verso';
+                divPage.appendChild(divVerso);
+        
+            return {
+                    page : divPage,
+                    recto : divRecto,
+                    verso : divVerso
+                    };
+        }
+    
+    
+    
+    
+        /**
+         * Creer div containeur paragraphe avec text et date paragraphe
+         * return un object avec le containeur et le paragraphe du text
+         */
+        function CreerContaineurParagraphe(paragraphe) {
+            var divContaineurParagraphe = document.createElement('div');
+                divContaineurParagraphe.className = 'containeur-paragraphe';
+            
+            //s'il s'agit d'un object, il faut rajouter la date
+            if (paragraphe.date) {
+    
+                var date = document.createElement('b');
+                    date.textContent = paragraphe.date;
+                    divContaineurParagraphe.appendChild(date);
+            
+            }
+    
+            //Creer le paragraphe avec le text. si paragraphe est juste de text le rajouter sinon prendre le text de l'object
+            var paragrapheText = document.createElement('p');
+                paragrapheText.textContent = (paragraphe.date ? paragraphe.text : paragraphe);
+                divContaineurParagraphe.appendChild(paragrapheText);
+    
+            return {
+                containeur: divContaineurParagraphe,
+                paragraphe: paragrapheText
+            }
+        }
+    
+    
+    
+    
+        /**
+         * Rajoute le text dans la page en vérifiant
+         * que celui-ci n'est pas plus grand que la page.
+         * Si la page est pleine, rajouter la page dans
+         * le Fragment. Et rajouter le reste du text dans une
+         * autre page.
+         */
+        function RajouterTextPage(paragraphe) {
+    
+            var infoElementParagraphe = CreerContaineurParagraphe(paragraphe);
+    
+            var tabParagrapheText = infoElementParagraphe.paragraphe.textContent.split(' ');
+            var boolTextAjouter;
+            var textARajouter;
+    
+            for (var i = tabParagrapheText.length; i >= 0 && !boolTextAjouter; i--) {
+                infoElementParagraphe.paragraphe.textContent = tabParagrapheText.slice(0, i).join(' ');
+                
+                if ( VerifierTailleContenuPage(infoElementParagraphe)) {
+    
+                    infoElementPage[(boolVerso ? 'verso' : 'recto')].appendChild(infoElementParagraphe.containeur);
+                    boolTextAjouter = true;
+                    
+                    if ( i < tabParagrapheText.length - 1)
+                        textARajouter = tabParagrapheText.slice(i).join(' ');
+                    else
+                        textARajouter = null;
+                }
+    
+            }
+    
+            if ((boolTextAjouter && textARajouter) ||
+                !boolTextAjouter) {
+    
+                    //met la apge qu'on a deja dans le livre
+                    if (boolVerso) {
+                        divFragment.appendChild(infoElementPage.page);
+                        infoElementPage = CreerPage();
+                        boolVerso = false;
+                    }
+            
+                    //sinon on tourne la page et on place le text sur le verso
+                    else
+                        boolVerso = true;
+                    
+                RajouterTextPage((textARajouter ? textARajouter : paragraphe));
+            }
+        }
+    
+    
+    
+    
+    
+        /**
+         * Verifie si le paragraphe est plus grand que la page
+         * et retourne la reponse.
+         */
+        function VerifierTailleContenuPage(infoElementParagraphe) {
+            
+            var testDivPage = infoElementPage.page.cloneNode(true);
+                testDivPage.className += ' test';
+                
+            var testZoneText = testDivPage.getElementsByClassName(boolVerso ? 'verso' : 'recto')[0];
+                testZoneText.appendChild(infoElementParagraphe.containeur);
+            
+            livreUdris.appendChild(testDivPage);
+    
+            var divPageBottom = testDivPage.getBoundingClientRect().bottom;
+            var containeurParagrapheBottom = infoElementParagraphe.containeur.getBoundingClientRect().bottom;
+            
+            testDivPage.remove();
+    
+    
+            return (containeurParagrapheBottom <= divPageBottom);
+        }        
 
     }
     
