@@ -38,8 +38,9 @@ function VerifierContenuPage() {
 
     var containeurParagrapheCreer = document.getElementsByClassName('containeur-paragraphe');
     var mauvaiseTailleParagraphe = false;
+    var nbContaineurParagraphe = containeurParagrapheCreer.length - 1;
 
-    for (var i = 0; i < containeurParagrapheCreer.length - 1; i++) {
+    for (var i = 0; i < nbContaineurParagraphe; i++) {
         var containeurBottom = containeurParagrapheCreer[i].getBoundingClientRect().bottom;
         var parentContaineurBottom = containeurParagrapheCreer[i].parentElement.getBoundingClientRect().bottom;
 
@@ -608,5 +609,6 @@ window.addEventListener("load", function() {
     
     RajouterEvenement();
     RedimensionnerLivre();
-    VerifierContenuPage();
+
+    this.setTimeout( VerifierContenuPage(), 500);
 });
