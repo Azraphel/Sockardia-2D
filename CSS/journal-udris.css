@@ -35,9 +35,8 @@ body {
 }
 
 #chargement {
-justify-content: center;
+    justify-content: center;
     align-items: center;
-    
 }
 
 #chargement span{
@@ -51,14 +50,20 @@ justify-content: center;
 }
 
 #chargement span:nth-child(1){
+    -webkit-animation: opacitychange 3s ease-in-out infinite;
+    -moz-animation: opacitychange 3s ease-in-out infinite;
     animation: opacitychange 3s ease-in-out infinite;
 }
 
 #chargement span:nth-child(2){
+    -webkit-animation: opacitychange 3s ease-in-out 0.33s infinite;
+    -moz-animation: opacitychange 3s ease-in-out 0.33s infinite;
     animation: opacitychange 3s ease-in-out 0.33s infinite;
 }
 
 #chargement span:nth-child(3){
+    -webkit-animation: opacitychange 3s ease-in-out 0.66s infinite;
+    -moz-animation: opacitychange 3s ease-in-out 0.66s infinite;
     animation: opacitychange 3s ease-in-out 0.66s infinite;
 }
 
@@ -78,7 +83,13 @@ justify-content: center;
     width: 33vw;
     top: 50%;
     left: 50%;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+    
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
     transition: 0.5s;
 }
 
@@ -89,10 +100,14 @@ justify-content: center;
     transition-duration: 0.5s;
     top: 50%;
     left: 50%;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    transform-origin: 0;
+    
     -webkit-transform-origin: 0;
     -moz-transform-origin: 0;
+    transform-origin: 0;
 }
 
 .livre-udris.page-couverture {
@@ -113,14 +128,21 @@ justify-content: center;
     position: absolute;
     height: 97%;
     width: 97%;
-    transform-style: preserve-3d;
-    transform-origin: left;
-    transition: transform 0.5s;
 
     -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
     -webkit-transform-origin: left;
+    -moz-transform-origin: left;
+    transform-origin: left;
+    
     -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    transition: transform 1s;
+    
     -webkit-transform:translate3d(0,0,0);
+
 
 }
 
@@ -129,8 +151,9 @@ justify-content: center;
 }
 
 .page.verso {
-    transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg) translateZ(0);
+    -moz-transform: rotateY(180deg) translateZ(0);
+    transform: rotateY(180deg);
 }
 
 .page .recto,
@@ -139,13 +162,16 @@ justify-content: center;
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden;
+
     -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .verso {
-    transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 
 .page.recto.page-qui-tourne,
@@ -192,6 +218,9 @@ justify-content: center;
     width: 90%;
     top: 50%;
     left: 50%;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
 
@@ -201,11 +230,15 @@ justify-content: center;
     position: absolute;
     margin: 0 auto;
     top: 50%;
-    transform: translate(0, -50%);
     opacity: 0;
     transition: 1s;
     visibility: hidden;
+
+    -webkit-transform: translate(0, -50%);
+    -moz-transform: translate(0, -50%);
+    transform: translate(0, -50%);
 }
+
 #containeur-explication-questionnaire.montrer,
 #containeur-question-reponse.montrer,
 #containeur-resultat-quiz.montrer {
@@ -290,10 +323,15 @@ input[type="radio"]:checked + label {
 #btn-soumettre-recommencer-questionnaire img {
     width: 10%;
     height: auto;
+
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
     transition: all 0.1s;
 }
 
 #btn-soumettre-recommencer-questionnaire img:active {
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
     transform: scale(0.8);
 }
 
@@ -311,10 +349,15 @@ input[type="radio"]:checked + label {
     height: 100%;
     width: 50%;
     float: left;
+
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
     transition: all 0.1s;
 }
 
 .icon-social-media:active {
+    -webkit-transform: scale(0.8);
+    -moz-transform: scale(0.8);
     transform: scale(0.8);
 }
 

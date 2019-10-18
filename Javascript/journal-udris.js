@@ -595,20 +595,24 @@ function RedimensionnerLivre() {
  */
 window.addEventListener("load", function() {
 
-    setTimeout(function() {
+    // setTimeout(function() {
         
-        if ( navigateur_internet_explorer || navigateur_safari) {
-            document.getElementById("containeur-information").textContent = "Veuillez utilisez un navigateur plus récent tel que: Brave, Firefox, Chrome ou Edge.";
-        }
-        else {
+    //     if ( navigateur_internet_explorer || navigateur_safari) {
+    //         document.getElementById("containeur-information").textContent = "Veuillez utilisez un navigateur plus récent tel que: Brave, Firefox, Chrome ou Edge.";
+    //     }
+    //     else {
             
-            document.getElementById("containeur-information").style.display = "none";
-        }
+    //         document.getElementById("containeur-information").style.display = "none";
+    //     }
 
-    }, 1000);
+    // }, 1000);
     
     RajouterEvenement();
     RedimensionnerLivre();
 
-    this.setTimeout( VerifierContenuPage(), 500);
+    this.setTimeout( function() {
+        VerifierContenuPage();
+
+        document.getElementById("containeur-information").style.display = "none";
+    }, 500);
 });
