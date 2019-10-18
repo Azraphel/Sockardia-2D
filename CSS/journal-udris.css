@@ -88,18 +88,21 @@ body {
     -moz-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    transition: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    transition-duration: 0.5s;
 }
 
 .livre-udris {
     position: relative;
     height: 568.98px;
     width: 448.28px;
-    transition-duration: 0.5s;
     top: 50%;
     left: 50%;
+
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    transition-duration: 0.5s;
 
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
@@ -137,9 +140,13 @@ body {
     -moz-transform-origin: left;
     transform-origin: left;
     
-    -webkit-transition: -webkit-transform 1s;
-    -moz-transition: -moz-transform 1s;
-    transition: transform 1s;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    transition-property: transform;
+
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    transition-duration: 1s;
     
     -webkit-transform:translate3d(0,0,0);
 
@@ -231,8 +238,11 @@ body {
     margin: 0 auto;
     top: 50%;
     opacity: 0;
-    transition: 1s;
     visibility: hidden;
+    
+    -webkit-transition-duration: 1s;
+    -moz-transition-duration: 1s;
+    transition-duration: 1s;
 
     -webkit-transform: translate(0, -50%);
     -moz-transform: translate(0, -50%);
@@ -324,9 +334,9 @@ input[type="radio"]:checked + label {
     width: 10%;
     height: auto;
 
-    -webkit-transition: all 0.1s;
-    -moz-transition: all 0.1s;
-    transition: all 0.1s;
+    -webkit-transition-duration: 100ms;
+    -moz-transition-duration: 100ms;
+    transition-duration: 100ms;
 }
 
 #btn-soumettre-recommencer-questionnaire img:active {
@@ -350,9 +360,9 @@ input[type="radio"]:checked + label {
     width: 50%;
     float: left;
 
-    -webkit-transition: all 0.1s;
-    -moz-transition: all 0.1s;
-    transition: all 0.1s;
+    -webkit-transition-duration: 100ms;
+    -moz-transition-duration: 100ms;
+    transition-duration: 100ms;
 }
 
 .icon-social-media:active {
