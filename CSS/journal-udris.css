@@ -50,21 +50,21 @@ body {
 }
 
 #chargement span:nth-child(1){
-    -webkit-animation: opacitychange 3s ease-in-out infinite;
-    -moz-animation: opacitychange 3s ease-in-out infinite;
     animation: opacitychange 3s ease-in-out infinite;
+    -moz-animation: opacitychange 3s ease-in-out infinite;
+    -webkit-animation: opacitychange 3s ease-in-out infinite;
 }
 
 #chargement span:nth-child(2){
-    -webkit-animation: opacitychange 3s ease-in-out 0.33s infinite;
-    -moz-animation: opacitychange 3s ease-in-out 0.33s infinite;
     animation: opacitychange 3s ease-in-out 0.33s infinite;
+    -moz-animation: opacitychange 3s ease-in-out 0.33s infinite;
+    -webkit-animation: opacitychange 3s ease-in-out 0.33s infinite;
 }
 
 #chargement span:nth-child(3){
-    -webkit-animation: opacitychange 3s ease-in-out 0.66s infinite;
-    -moz-animation: opacitychange 3s ease-in-out 0.66s infinite;
     animation: opacitychange 3s ease-in-out 0.66s infinite;
+    -moz-animation: opacitychange 3s ease-in-out 0.66s infinite;
+    -webkit-animation: opacitychange 3s ease-in-out 0.66s infinite;
 }
 
 @keyframes opacitychange{
@@ -149,8 +149,6 @@ body {
     transition-duration: 1s;
     
     -webkit-transform:translate3d(0,0,0);
-
-
 }
 
 .livre-udris .page.page-simple {
@@ -158,9 +156,9 @@ body {
 }
 
 .page.verso {
-    -webkit-transform: rotateY(180deg) translateZ(0);
-    -moz-transform: rotateY(180deg) translateZ(0);
-    transform: rotateY(180deg);
+    -webkit-transform: rotateY(-180deg) translateZ(0);
+    -moz-transform: rotateY(-180deg) translateZ(0);
+    transform: rotateY(-180deg) translateZ(0);
 }
 
 .page .recto,
@@ -213,6 +211,10 @@ body {
 
 .page-en-cours-de-lecture {
     z-index: 1;
+}
+
+.verso.couverture.page-couverture {
+    -webkit-transform: rotateY(180deg);
 }
 
 .containeur-paragraphe {
@@ -334,19 +336,19 @@ input[type="radio"]:checked + label {
     width: 10%;
     height: auto;
 
-    -webkit-transition-duration: 100ms;
-    -moz-transition-duration: 100ms;
     transition-duration: 100ms;
+    -moz-transition-duration: 100ms;
+    -webkit-transition-duration: 100ms;
 }
 
 #btn-soumettre-recommencer-questionnaire img:active {
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
     transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
 }
 
 #containeur-media-social {
-    position: absolute;
+    position: fixed;
     display: flex;
     height: auto;
     width: 7%;
@@ -360,15 +362,15 @@ input[type="radio"]:checked + label {
     width: 50%;
     float: left;
 
-    -webkit-transition-duration: 100ms;
-    -moz-transition-duration: 100ms;
     transition-duration: 100ms;
+    -moz-transition-duration: 100ms;
+    -webkit-transition-duration: 100ms;
 }
 
 .icon-social-media:active {
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
     transform: scale(0.8);
+    -moz-transform: scale(0.8);
+    -webkit-transform: scale(0.8);
 }
 
 .icon-social-media img {

@@ -278,13 +278,13 @@ function VerifierContenuPage() {
      * Function pour tourner les page lorsque celle-ci
      * est cliquer ou toucher.
      */
-    function TournerLesPages(page_cliquer, direction) {
+    function TournerLesPages(page_cliquer) {
 
         if (document.getElementsByClassName("page-qui-tourne").length > 0) {
             return;
         }
         
-        if (direction == null && page_cliquer.classList.contains("recto") || direction && direction == 'droite') {
+        if ( page_cliquer.classList.contains("recto") ) {
             
             presentPageRecto.classList.add("page-qui-tourne");
             presentPageRecto.classList.remove("recto");
@@ -317,7 +317,7 @@ function VerifierContenuPage() {
 
         }
 
-        else if (!direction || direction && direction == 'gauche') {
+        else {
             
             if (presentPageRecto.classList.contains("recto")) {
                 presentPageRecto = presentPageRecto.previousElementSibling;
